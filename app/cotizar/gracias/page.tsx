@@ -1,13 +1,15 @@
 'use client'
 
+import { Suspense } from 'react'
 import { Button } from '@heroui/button'
 import { Card, CardBody } from '@heroui/card'
 import { Link } from '@heroui/link'
 import { useSearchParams } from 'next/navigation'
 
-export default function GraciasCotizacion() {
+function GraciasInner() {
   const sp = useSearchParams()
   const id = sp.get('id')
+
   return (
     <div className="max-w-2xl mx-auto p-6">
       <Card className="border rounded-2xl">
@@ -24,3 +26,14 @@ export default function GraciasCotizacion() {
     </div>
   )
 }
+
+export default function GraciasPage() {
+  return (
+    <Suspense fallback={<div className="p-6 text-default-500">Cargando…</div>}>
+      <GraciasInner />
+    </Suspense>
+  )
+}
+
+// (Opcional) evita pre-render estático si quieres
+// export const dynamic = 'force-dynamic'
