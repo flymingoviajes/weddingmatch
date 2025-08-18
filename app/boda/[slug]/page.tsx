@@ -73,21 +73,30 @@ async function getBodaData(slug: string): Promise<BodaData | null> {
   return null
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const data = await getBodaData(params.slug)
+type Params = { slug: string }
+
+export async function generateMetadata(
+  { params }: { params: Promise<Params> }
+): Promise<Metadata> {
+  const { slug } = await params
+  const data = await getBodaData(slug)
   if (!data) return { title: 'Boda • Invitados', description: 'Información para invitados' }
   const title = `${data.nombresNovios} • Información para invitados`
   const description = data.subtitulo ?? 'Tarifas, hotel, agenda y RSVP'
   const image = data.portadaUrl
   return {
-    title, description,
+    title,
+    description,
     openGraph: { title, description, images: image ? [{ url: image }] : undefined },
     twitter: { card: 'summary_large_image', title, description, images: image ? [image] : undefined }
   }
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const data = await getBodaData(params.slug)
+export default async function Page(
+  { params }: { params: Promise<Params> }
+) {
+  const { slug } = await params
+  const data = await getBodaData(slug)
   if (!data) return notFound()
 
   return (
