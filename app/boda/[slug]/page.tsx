@@ -22,7 +22,7 @@ const DEMO: BodaData = {
   nombresNovios: 'Ana Karla Moriel Lara & Alan Eduardo Torres Ocono',
   fechaEventoISO: '2026-07-04T14:00:00-05:00', // 2 pm Cancún (UTC-5)
   subtitulo: 'Moon Palace Cancun — 03 al 06 de julio de 2026',
-  portadaUrl: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1800&auto=format&fit=crop',
+  portadaUrl: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/WhatsApp%20Image%202025-08-18%20at%202.30.35%20PM.jpeg',
   hospedaje: { inicioISO: '2026-07-03T15:00:00-05:00', finISO: '2026-07-06T12:00:00-05:00' },
   hotel: {
     nombre: 'Moon Palace Cancun',
