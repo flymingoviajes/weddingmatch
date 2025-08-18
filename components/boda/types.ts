@@ -41,6 +41,9 @@ export interface BodaData {
   fechaEventoISO: string // ej. '2026-07-04T14:00:00-05:00' (America/Cancun)
   subtitulo?: string
   portadaUrl?: string
+    galeria?: { images: GalleryImage[] }
+  hotelOverview?: HotelOverviewData
+
 
   // Rango de hospedaje del bloque
   hospedaje: { inicioISO: string; finISO: string }
@@ -64,3 +67,15 @@ export interface BodaData {
   rsvpMode?: 'form' | 'whatsapp'
   cotizador: CotizadorRules
 }
+
+export interface GalleryImage {
+  src: string
+  alt?: string
+  caption?: string
+}
+
+export interface HotelOverviewData {
+  descripcion: string
+  secciones: { titulo: string; bullets: string[] }[]
+}
+
