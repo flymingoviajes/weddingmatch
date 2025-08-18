@@ -4,6 +4,8 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@herou
 import { Button } from '@heroui/button'
 import { Input } from '@heroui/input'
 import { Snippet } from '@heroui/snippet'
+import { Link } from '@heroui/link'
+import { Phone } from 'lucide-react'
 import { BodaData } from './types'
 
 export default function RSVPModal({
@@ -17,7 +19,6 @@ export default function RSVPModal({
   boda: BodaData
   preset?: { adultos: number; menores: number; nights: number; total: number; occupancyLabel: string }
 }) {
-  const [loading, setLoading] = useState(false)
   const [form, setForm] = useState({
     nombre: '',
     email: '',
@@ -28,19 +29,10 @@ export default function RSVPModal({
   })
   const onChange = (k: keyof typeof form, v: any) => setForm((s) => ({ ...s, [k]: v }))
 
-  const submit = async () => {
-    try {
-      setLoading(true)
-      // TODO: conectar a Supabase -> invitados_boda
-      await new Promise((r) => setTimeout(r, 600))
-      onOpenChange(false)
-      alert('¡Gracias! Hemos registrado tu interés. Te contactaremos para finalizar la reserva.')
-    } catch {
-      alert('No pudimos guardar tu RSVP. Intenta de nuevo o escríbenos por WhatsApp.')
-    } finally {
-      setLoading(false)
-    }
-  }
+  // WhatsApp solicitado (mensaje EXACTO)
+  const waNumber = '528715816903'
+  const waText = '/confirmar Hola, quiero confirmar mi lugar en la boda de Ana Karla y Alan'
+  const waHref = `https://wa.me/${waNumber}?text=${encodeURIComponent(waText)}`
 
   return (
     <Modal isOpen={open} onOpenChange={onOpenChange} size="lg" scrollBehavior="inside">
@@ -51,6 +43,7 @@ export default function RSVPModal({
               <span className="text-sm text-neutral-500">Boda {boda.nombresNovios}</span>
               <span className="text-xl font-semibold">Reservar mi lugar</span>
             </ModalHeader>
+
             <ModalBody className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input
@@ -101,12 +94,13 @@ export default function RSVPModal({
                 </Snippet>
               )}
             </ModalBody>
-            <ModalFooter>
+
+            <ModalFooter className="flex flex-wrap gap-2">
+              <Button as={Link} href={waHref} target="_blank" color="success" startContent={<Phone className="w-4 h-4" />}>
+                Confirmar por WhatsApp
+              </Button>
               <Button variant="flat" onPress={onClose}>
                 Cancelar
-              </Button>
-              <Button color="success" isLoading={loading} onPress={submit}>
-                Enviar solicitud
               </Button>
             </ModalFooter>
           </>

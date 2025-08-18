@@ -4,14 +4,18 @@ import { Card, CardBody, CardHeader } from '@heroui/card'
 import { Divider } from '@heroui/divider'
 import { Button } from '@heroui/button'
 import { Input } from '@heroui/input'
-import { AlertCircle, Calculator, ChevronRight } from 'lucide-react'
+import { AlertCircle, Calculator, ChevronRight, Wallet } from 'lucide-react'
 import { BodaData } from './types'
 import { formatCurrency, nightsBetween } from './utils'
 import { emitOpenRSVP } from './rsvpBus'
 
 export default function CotizadorHabitacion({ data }: { data: BodaData }) {
+  // Estados numéricos
   const [adultos, setAdultos] = useState(2)
   const [menores, setMenores] = useState(0)
+  // Estados de texto para edición libre (evita “salto a 4” al tipear)
+  const [adultosStr, setAdultosStr] = useState('2')
+  const [menoresStr, setMenoresStr] = useState('0')
 
   const nights = useMemo(
     () => nightsBetween(data.hospedaje.inicioISO, data.hospedaje.finISO),
@@ -38,6 +42,35 @@ export default function CotizadorHabitacion({ data }: { data: BodaData }) {
     return payingAdults * (perAdultRate ?? 0) * nights
   })()
 
+  // —— Apartado ——
+  const APARTA_MXN = 1000
+  const deposito = adultos * APARTA_MXN
+
+  // Handlers con edición libre y clamp en blur
+  const handleAdultosChange = (raw: string) => {
+    if (/^\d*$/.test(raw)) setAdultosStr(raw)
+  }
+  const handleAdultosBlur = () => {
+    const parsed = parseInt(adultosStr || '0', 10)
+    const clamped = Math.min(4, Math.max(1, isNaN(parsed) ? 1 : parsed))
+    setAdultos(clamped)
+    setAdultosStr(String(clamped))
+    const newMaxMenores = Math.max(0, data.cotizador.maxOccupancy - clamped)
+    if (menores > newMaxMenores) {
+      setMenores(newMaxMenores)
+      setMenoresStr(String(newMaxMenores))
+    }
+  }
+  const handleMenoresChange = (raw: string) => {
+    if (/^\d*$/.test(raw)) setMenoresStr(raw)
+  }
+  const handleMenoresBlur = () => {
+    const parsed = parseInt(menoresStr || '0', 10)
+    const clamped = Math.min(maxMenores, Math.max(0, isNaN(parsed) ? 0 : parsed))
+    setMenores(clamped)
+    setMenoresStr(String(clamped))
+  }
+
   const warnings: string[] = []
   if (adultos < 1) warnings.push('Debe haber al menos 1 adulto por habitación.')
   if (adultos + menores > data.cotizador.maxOccupancy)
@@ -59,33 +92,31 @@ export default function CotizadorHabitacion({ data }: { data: BodaData }) {
       <CardBody className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Input
-            type="number"
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
             label="Adultos"
-            value={String(adultos)}
-            min={1}
-            max={4}
-            onChange={(e) =>
-              setAdultos(Math.min(4, Math.max(1, Number(e.target.value) || 1)))
-            }
+            value={adultosStr}
+            onChange={(e) => handleAdultosChange(e.target.value)}
+            onBlur={handleAdultosBlur}
+            placeholder="1–4"
           />
           <Input
-            type="number"
-            label="Menores (0-17)"
-            value={String(menores)}
-            min={0}
-            max={maxMenores}
-            onChange={(e) =>
-              setMenores(
-                Math.min(maxMenores, Math.max(0, Number(e.target.value) || 0))
-              )
-            }
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            label={`Menores (0–17)`}
+            value={menoresStr}
+            onChange={(e) => handleMenoresChange(e.target.value)}
+            onBlur={handleMenoresBlur}
+            placeholder={`0–${maxMenores}`}
           />
           <Input isReadOnly label="Noches" value={String(nights)} />
         </div>
 
         <div className="rounded-xl border border-neutral-200 p-4">
           <p className="text-sm text-neutral-600">
-            Ocupación seleccionada:{' '}
+            Ocupación seleccionada{' '}
             <span className="font-medium">{occupancyLabel}</span> ({adultos} adulto(s)
             {menores > 0 ? ` + ${menores} menor(es)` : ''})
           </p>
@@ -115,7 +146,17 @@ export default function CotizadorHabitacion({ data }: { data: BodaData }) {
           <p className="text-lg font-semibold">
             Total estimado: {formatCurrency(total, 'MXN')}
           </p>
-          <p className="text-sm text-neutral-500">
+
+          {/* Apartado (sin botón extra) */}
+          <div className="mt-2 flex items-center gap-2">
+            <Wallet className="w-4 h-4" />
+            <p className="text-sm text-neutral-700">
+              Aparta hoy con <strong>{formatCurrency(deposito, 'MXN')}</strong>{' '}
+              <span className="text-neutral-600">(MXN $1,000 por adulto)</span>
+            </p>
+          </div>
+
+          <p className="text-sm text-neutral-500 mt-1">
             * Estimado basado en ocupación de adultos. Menores sin costo, pero cuentan para el aforo máximo.
           </p>
         </div>

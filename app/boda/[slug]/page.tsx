@@ -19,7 +19,7 @@ export const revalidate = 30
 // ===== DEMO con los datos de Ana Karla & Alan =====
 const DEMO: BodaData = {
   slug: 'ana-karla-y-alan-2026',
-  nombresNovios: 'Ana Karla Moriel Lara & Alan Eduardo Torres Ocono',
+  nombresNovios: 'Ana Karla Moriel Lara & Alan Eduardo Torres Ocon',
   fechaEventoISO: '2026-07-04T14:00:00-05:00', // 2 pm Cancún (UTC-5)
   subtitulo: 'Moon Palace Cancun — 03 al 06 de julio de 2026',
   portadaUrl: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/WhatsApp%20Image%202025-08-18%20at%202.30.35%20PM.jpeg',
