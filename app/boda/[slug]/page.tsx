@@ -49,7 +49,6 @@ const DEMO: BodaData = {
   ],
   agenda: [
     { hora: '14:00', titulo: 'Ceremonia Católica', icon: 'ceremonia' },
-    { hora: '16:00', titulo: 'Ceremonia Simbólica', icon: 'ceremonia' },
     { titulo: 'Coctel', detalle: 'Por definir', icon: 'otro' }
   ],
   faq: [
