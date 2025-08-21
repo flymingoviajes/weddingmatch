@@ -66,7 +66,7 @@ export default function Footer() {
               <div className="font-semibold">Hablemos</div>
               <div className="flex gap-3">
                 <Link
-                  href="https://wa.me/5218716887385"
+                  href="https://wa.me/5218715816903"
                   target="_blank"
                   className="inline-flex items-center gap-2 text-default-600 hover:text-primary"
                 >
