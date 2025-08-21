@@ -52,6 +52,7 @@ const DEMO: BodaData = {
     { titulo: 'Coctel', detalle: 'Por definir', icon: 'otro' }
   ],
   faq: [
+    { q: '¿Incluye vuelos?', a: 'En este cotizador solo se incluyen las tarifas del hospedaje, si requieres vuelo, puedes solicitarlo con tu agente.' },
     { q: '¿Mínimo de noches?', a: '3 noches (03–06 julio 2026).' },
     { q: '¿Capacidad por habitación?', a: 'Máximo 4 personas entre adultos y menores.' },
     { q: '¿Menores?', a: '0–17 años gratis compartiendo con adultos, sujetos a política del hotel.' }
