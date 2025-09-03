@@ -135,7 +135,7 @@ const DEMO2: BodaData = {
   nombresNovios: 'María Teresa & Jorge Emilio',
   fechaEventoISO: '2026-10-17T17:00:00-07:00', // 5 pm Cabo (UTC-7 aprox)
   subtitulo: 'Hard Rock Los Cabos — 16 al 19 de octubre de 2026',
-  portadaUrl: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/boda%20emilio/WhatsApp%20Image%202025-09-03%20at%202.34.08%20PM.jpeg',
+  portadaUrl: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/boda%20emilio/emilio.jpeg',
   hospedaje: { inicioISO: '2026-10-16T15:00:00-07:00', finISO: '2026-10-19T12:00:00-07:00' },
   hotel: {
     nombre: 'Hard Rock Hotel Los Cabos',
@@ -189,10 +189,10 @@ const DEMO2: BodaData = {
   },
   galeria: {
     images: [
-      { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/boda%20emilio/WhatsApp%20Image%202025-09-03%20at%202.36.09%20PM.jpeg', caption: 'Piscinas y vistas al mar' },
-      { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/boda%20emilio/WhatsApp%20Image%202025-09-03%20at%202.35.40%20PM.jpeg', caption: 'Habitaciones modernas' },
-      { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/boda%20emilio/WhatsApp%20Image%202025-09-03%20at%202.35.09%20PM.jpeg', caption: 'Restaurantes y bares' },
-      { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/boda%20emilio/WhatsApp%20Image%202025-09-03%20at%202.34.50%20PM.jpeg', caption: 'Restaurantes y bares' }
+      { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/boda%20emilio/hardrock_1.jpeg', caption: 'Piscinas y vistas al mar' },
+      { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/boda%20emilio/hardrock_2.jpeg', caption: 'Habitaciones modernas' },
+      { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/boda%20emilio/hardrock_3.jpeg', caption: 'Restaurantes y bares' },
+      { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/boda%20emilio/hardrock_4.jpeg', caption: 'Restaurantes y bares' }
     ]
   },
   hotelOverview: {
