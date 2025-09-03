@@ -31,7 +31,7 @@ export default function RSVPModal({
 
   // WhatsApp solicitado (mensaje EXACTO)
   const waNumber = '528715816903'
-  const waText = '/confirmar Hola, quiero confirmar mi lugar en la boda de Ana Karla y Alan'
+  const waText = '/confirmar Hola, quiero confirmar mi lugar en la boda de: _________'
   const waHref = `https://wa.me/${waNumber}?text=${encodeURIComponent(waText)}`
 
   return (
