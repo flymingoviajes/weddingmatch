@@ -1,4 +1,5 @@
-import { Link } from "@heroui/react";
+'use client'
+import { Link } from "@heroui/link";
 import { Snippet } from "@heroui/react";
 import { Code } from "@heroui/react";
 import { button as buttonStyles } from "@heroui/theme";
