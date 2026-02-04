@@ -6,7 +6,7 @@ import { Divider } from '@heroui/divider'
 import { Hotel, Users, Link as LinkIcon, Phone } from 'lucide-react'
 import { BodaData, Tarifa } from './types'
 import { formatCurrency } from './utils'
-import { Link } from '@heroui/link'
+import { Link } from '@heroui/react'
 import { emitOpenRSVP } from './rsvpBus'
 
 export default function TarifasGrid({ data }: { data: BodaData }) {

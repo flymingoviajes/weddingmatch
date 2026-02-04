@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Link } from '@heroui/link'
+import { Link } from '@heroui/react'
 import { Divider } from '@heroui/divider'
 import { Instagram, Facebook, MessageCircle } from 'lucide-react'
 

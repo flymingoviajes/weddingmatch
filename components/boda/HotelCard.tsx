@@ -2,7 +2,7 @@
 import { Card, CardBody, CardHeader } from '@heroui/react'
 import { Divider } from '@heroui/divider'
 import { Button } from '@heroui/button'
-import { Link } from '@heroui/link'
+import { Link } from '@heroui/react'
 import { MapPin } from 'lucide-react'
 import { BodaData } from './types'
 

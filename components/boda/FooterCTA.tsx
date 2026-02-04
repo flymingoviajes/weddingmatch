@@ -1,6 +1,6 @@
 'use client'
 import { Button } from '@heroui/button'
-import { Link } from '@heroui/link'
+import { Link } from '@heroui/react'
 import { CalendarDays } from 'lucide-react'
 import { BodaData } from './types'
 import { icsFromEvent } from './utils'

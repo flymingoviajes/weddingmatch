@@ -10,7 +10,7 @@ import {
   NavbarMenuItem,
 } from "@heroui/navbar";
 import { Button } from "@heroui/button";
-import { Link } from "@heroui/link";
+import { Link } from "@heroui/react";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { link as linkStyles } from "@heroui/theme";
 import NextLink from "next/link";

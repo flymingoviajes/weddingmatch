@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import { Button } from '@heroui/button'
 import { Chip } from '@heroui/react'
-import { Link } from '@heroui/link'
+import { Link } from '@heroui/react'
 import { Copy, CalendarDays, MapPin, ChevronRight } from 'lucide-react'
 import { BodaData } from './types'
 import { formatDateLong, icsFromEvent } from './utils'

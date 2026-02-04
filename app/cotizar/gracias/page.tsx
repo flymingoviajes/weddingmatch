@@ -3,7 +3,7 @@
 import { Suspense } from 'react'
 import { Button } from '@heroui/button'
 import { Card, CardBody } from '@heroui/react'
-import { Link } from '@heroui/link'
+import { Link } from '@heroui/react'
 import { useSearchParams } from 'next/navigation'
 
 function GraciasInner() {
