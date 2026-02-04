@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Button } from '@heroui/button'
+import { Button } from '@heroui/react'
 import { Card, CardBody } from '@heroui/react'
 import { Skeleton } from '@heroui/react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
