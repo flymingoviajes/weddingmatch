@@ -1,5 +1,5 @@
 'use client'
-import { Card, CardBody, CardHeader } from '@heroui/card'
+import { Card, CardBody, CardHeader } from '@heroui/react'
 import { Divider } from '@heroui/divider'
 import { Button } from '@heroui/button'
 import { Link } from '@heroui/link'

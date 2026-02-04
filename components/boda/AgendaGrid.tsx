@@ -1,5 +1,5 @@
 'use client'
-import { Card, CardBody, CardHeader } from '@heroui/card'
+import { Card, CardBody, CardHeader } from '@heroui/react'
 import { Divider } from '@heroui/divider'
 import { CalendarDays, Users, Clock } from 'lucide-react'
 import { BodaData, AgendaItem } from './types'

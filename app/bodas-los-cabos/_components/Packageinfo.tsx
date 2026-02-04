@@ -1,9 +1,9 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Card, CardBody } from '@heroui/card'
+import { Card, CardBody } from '@heroui/react'
 import { Button } from '@heroui/button'
-import { Chip } from '@heroui/chip'
+import { Chip } from '@heroui/react'
 import { Gift, Wallet, PlaneTakeoff, CalendarClock } from 'lucide-react'
 
 export type PackagesInfoCabosProps = {

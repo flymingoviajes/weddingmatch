@@ -2,14 +2,14 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Card, CardBody, CardHeader } from '@heroui/card'
+import { Card, CardBody, CardHeader } from '@heroui/react'
 import { Button } from '@heroui/button'
-import { Chip } from '@heroui/chip'
-import { Accordion, AccordionItem } from '@heroui/accordion'
-import { Image } from '@heroui/image'
+import { Chip } from '@heroui/react'
+import { Accordion, AccordionItem } from '@heroui/react'
+import { Image } from '@heroui/react'
 import { Divider } from '@heroui/divider'
 import { Link } from '@heroui/link'
-import { Breadcrumbs, BreadcrumbItem } from '@heroui/breadcrumbs'
+import { Breadcrumbs, BreadcrumbItem } from '@heroui/react'
 import { Heart, CalendarDays, Users, MapPin, Shield, MessageCircle } from 'lucide-react'
 
 export default function NosotrosPage() {

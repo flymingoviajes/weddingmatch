@@ -3,9 +3,9 @@
 import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@heroui/button'
-import { Card, CardBody, CardFooter } from '@heroui/card'
-import { Chip } from '@heroui/chip'
-import { Image as HeroImage } from '@heroui/image'
+import { Card, CardBody, CardFooter } from '@heroui/react'
+import { Chip } from '@heroui/react'
+import { Image as HeroImage } from '@heroui/react'
 
 // ────────────────────────────────────────────────────────────────
 // Helper: Calendly con UTMs

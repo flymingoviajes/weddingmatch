@@ -3,12 +3,12 @@
 import { useEffect, useMemo, useState } from 'react'
 import { supabaseClient } from '@/utils/supabase/client'
 import { useCompare } from '@/hooks/useCompare'
-import { Card, CardHeader, CardBody } from '@heroui/card'
+import { Card, CardHeader, CardBody } from '@heroui/react'
 import { Button } from '@heroui/button'
-import { Chip } from '@heroui/chip'
-import { Image } from '@heroui/image'
+import { Chip } from '@heroui/react'
+import { Image } from '@heroui/react'
 import { Divider } from '@heroui/divider'
-import { Breadcrumbs, BreadcrumbItem } from '@heroui/breadcrumbs'
+import { Breadcrumbs, BreadcrumbItem } from '@heroui/react'
 import { Trash2 } from 'lucide-react'
 
 export default function CompararPage() {

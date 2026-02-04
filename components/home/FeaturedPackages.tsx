@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { Card, CardHeader, CardBody, CardFooter } from '@heroui/card'
-import { Image } from '@heroui/image'
+import { Card, CardHeader, CardBody, CardFooter } from '@heroui/react'
+import { Image } from '@heroui/react'
 import { Button } from '@heroui/button'
 import { supabaseClient } from '@/utils/supabase/client'
 

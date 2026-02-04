@@ -2,8 +2,8 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { Button } from '@heroui/button'
-import { Card } from '@heroui/card'
-import { Modal, ModalBody, ModalContent } from '@heroui/modal'
+import { Card } from '@heroui/react'
+import { Modal, ModalBody, ModalContent } from '@heroui/react'
 import { ChevronLeft, ChevronRight, Maximize2, X, Dot } from 'lucide-react'
 import { GalleryImage } from './types'
 

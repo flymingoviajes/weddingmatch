@@ -1,7 +1,7 @@
 'use client'
 
-import { Card, CardBody } from '@heroui/card'
-import { Chip } from '@heroui/chip'
+import { Card, CardBody } from '@heroui/react'
+import { Chip } from '@heroui/react'
 import { motion } from 'framer-motion'
 import { UserCheck, QrCode, Users } from 'lucide-react'
 

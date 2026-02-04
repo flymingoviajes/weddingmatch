@@ -1,6 +1,6 @@
 'use client'
 import { useMemo, useState } from 'react'
-import { Card, CardBody, CardHeader } from '@heroui/card'
+import { Card, CardBody, CardHeader } from '@heroui/react'
 import { Divider } from '@heroui/divider'
 import { Button } from '@heroui/button'
 import { Input } from '@heroui/input'

@@ -1,5 +1,5 @@
 'use client'
-import { Card, CardBody, CardHeader } from '@heroui/card'
+import { Card, CardBody, CardHeader } from '@heroui/react'
 import { Divider } from '@heroui/divider'
 import { Utensils, Martini, Waves, Dumbbell, Gamepad2, Sparkles, Bath, Music4 } from 'lucide-react'
 import { HotelOverviewData } from './types'

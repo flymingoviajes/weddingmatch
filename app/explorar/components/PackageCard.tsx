@@ -2,10 +2,10 @@
 
 import { useMemo, useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Card, CardHeader, CardBody, CardFooter } from "@heroui/card";
+import { Card, CardHeader, CardBody, CardFooter } from "@heroui/react";
 import { Button } from "@heroui/button";
-import { Image } from "@heroui/image";
-import { Chip } from '@heroui/chip'
+import { Image } from "@heroui/react";
+import { Chip } from '@heroui/react'
 import { Tooltip } from '@heroui/tooltip'
 import { MapPin, Heart } from 'lucide-react'
 import { motion } from 'framer-motion'

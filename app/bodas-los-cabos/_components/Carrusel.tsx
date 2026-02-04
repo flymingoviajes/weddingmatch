@@ -2,8 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Button } from '@heroui/button'
-import { Card, CardBody } from '@heroui/card'
-import { Skeleton } from '@heroui/skeleton'
+import { Card, CardBody } from '@heroui/react'
+import { Skeleton } from '@heroui/react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 // ────────────────────────────────────────────────────────────────
