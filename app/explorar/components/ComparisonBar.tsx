@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from "@heroui/button";
-import { Card } from "@heroui/card";
+import { Card } from "@heroui/react";
 import { useRouter } from 'next/navigation'
 import { useCompare } from "@/hooks/useCompare";
 

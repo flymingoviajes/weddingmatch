@@ -1,8 +1,8 @@
 'use client'
 
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@heroui/dropdown";
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@heroui/react";
 import { Button } from "@heroui/button";
-import { Chip } from "@heroui/chip";
+import { Chip } from "@heroui/react";
 
 export function SearchHeader({ total }: { total: number }) {
   return (

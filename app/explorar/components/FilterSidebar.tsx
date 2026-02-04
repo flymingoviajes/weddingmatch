@@ -2,13 +2,13 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { supabaseClient } from '@/utils/supabase/client'
-import { Checkbox } from "@heroui/checkbox";
-import { Slider } from "@heroui/slider";
-import { Accordion, AccordionItem } from "@heroui/accordion";
+import { Checkbox } from "@heroui/react";
+import { Slider } from "@heroui/react";
+import { Accordion, AccordionItem } from "@heroui/react";
 import { Input } from "@heroui/input";
 import { Button } from "@heroui/button";
-import { RadioGroup, Radio } from "@heroui/radio";
-import { Select, SelectItem } from "@heroui/select";
+import { RadioGroup, Radio } from "@heroui/react";
+import { Select, SelectItem } from "@heroui/react";
 
 export function FilterSidebar({
   value,

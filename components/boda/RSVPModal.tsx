@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@heroui/modal'
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@heroui/react'
 import { Button } from '@heroui/button'
 import { Input } from '@heroui/input'
 import { Snippet } from '@heroui/snippet'
