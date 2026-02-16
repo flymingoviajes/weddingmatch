@@ -296,8 +296,8 @@ const DEMO3: BodaData = {
   // Para que funcione sin cambiar componentes, dejamos como base DOM–MIE (más bajo) convertido a precio por adulto/noche.
   cotizador: {
     singlePerRoomPerNight: 11222,
-    doublePerAdultPerNight: 11222 / 2, // 5611
-    triplePerAdultPerNight: 13035 / 3, // 4345
+    doublePerAdultPerNight: 12055 / 2, // 5611
+    triplePerAdultPerNight: 13867 / 3, // 4345
     quadPerAdultPerNight: 0,
     childPolicy: { minAge: 13, maxAge: 17, pricePerNight: 0 },
     minNights: 3,
