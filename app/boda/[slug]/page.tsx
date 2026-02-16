@@ -265,15 +265,8 @@ const DEMO3: BodaData = {
 
   // Tarifas POR HABITACIÓN POR NOCHE (según la tabla que compartiste)
   tarifas: [
-    { titulo: 'Ocean Front Two Queen Beds (JUE–SAB) — SGL', precioDesde: 12472, moneda: 'MXN', por: 'noche', ocupacion: '1 adulto', minNoches: 3 },
-    { titulo: 'Ocean Front Two Queen Beds (JUE–SAB) — DBL', precioDesde: 14283, moneda: 'MXN', por: 'noche', ocupacion: '2 adultos', minNoches: 3 },
-    { titulo: 'Ocean Front Two Queen Beds (JUE–SAB) — TPL', precioDesde: 14283, moneda: 'MXN', por: 'noche', ocupacion: '3 adultos', minNoches: 3 },
-    { titulo: 'Junior (13–17 años) (JUE–SAB)', precioDesde: 0, moneda: 'MXN', por: 'persona', ocupacion: 'GRATIS', minNoches: 3 },
+    { titulo: 'Ocean Front Two Queen Beds (JUE–SAB) — DOBLE', precioDesde: 12055, moneda: 'MXN', por: 'noche', ocupacion: '2 adulto', minNoches: 3 },
 
-    { titulo: 'Ocean Front Two Queen Beds (DOM–MIE) — SGL', precioDesde: 11222, moneda: 'MXN', por: 'noche', ocupacion: '1 adulto', minNoches: 3 },
-    { titulo: 'Ocean Front Two Queen Beds (DOM–MIE) — DBL', precioDesde: 11222, moneda: 'MXN', por: 'noche', ocupacion: '2 adultos', minNoches: 3 },
-    { titulo: 'Ocean Front Two Queen Beds (DOM–MIE) — TPL', precioDesde: 13035, moneda: 'MXN', por: 'noche', ocupacion: '3 adultos', minNoches: 3 },
-    { titulo: 'Junior (13–17 años) (DOM–MIE)', precioDesde: 0, moneda: 'MXN', por: 'persona', ocupacion: 'GRATIS', minNoches: 3 }
   ],
 
   agenda: [
