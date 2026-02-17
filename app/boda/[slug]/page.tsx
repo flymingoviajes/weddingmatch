@@ -307,8 +307,13 @@ const DEMO3: BodaData = {
 
   galeria: {
     images: [
-       { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/boda%20marina/5a1a42016a0e487fbb437b5c1616e600_large!_!e98696513c4a17321795b992b09bf835.webp', caption: 'Piscinas y vistas al mar' },
-        { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/boda%20marina/AVA-Resort-Cancun%20(1).jpg', caption: 'Habitación' }
+       { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/bodaava/WhatsApp%20Image%202026-02-17%20at%2011.04.58%20AM%20(1).jpeg', caption: 'Hotel AVA Cancun' },
+        { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/bodaava/WhatsApp%20Image%202026-02-17%20at%2011.04.58%20AM%20(2).jpeg', caption: 'Instalaciones' },
+        { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/bodaava/WhatsApp%20Image%202026-02-17%20at%2011.04.58%20AM%20(3).jpeg', caption: 'Instalaciones' },
+        { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/bodaava/WhatsApp%20Image%202026-02-17%20at%2011.04.58%20AM.jpeg', caption: 'Instalaciones' },
+          { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/bodaava/WhatsApp%20Image%202026-02-17%20at%2011.04.58%20AM.jpeg', caption: 'Instalaciones' },
+            { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/bodaava/WhatsApp%20Image%202026-02-17%20at%2011.05.05%20AM.jpeg', caption: 'Instalaciones' },
+            { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/bodaava/WhatsApp%20Image%202026-02-17%20at%2011.05.14%20AM.jpeg', caption: 'Piscinas' }
     ]
   },
 
