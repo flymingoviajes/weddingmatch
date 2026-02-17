@@ -4,12 +4,18 @@ import { Card, CardBody, CardHeader } from '@heroui/react'
 import { Divider } from '@heroui/divider'
 import { Button } from '@heroui/button'
 import { Input } from '@heroui/input'
-import { AlertCircle, Calculator, ChevronRight, Wallet } from 'lucide-react'
+import { AlertCircle, Calculator, ChevronRight, Phone, Wallet } from 'lucide-react'
 import { BodaData } from './types'
 import { formatCurrency, nightsBetween } from './utils'
 import { emitOpenRSVP } from './rsvpBus'
 
-export default function CotizadorHabitacion({ data }: { data: BodaData }) {
+type CotizadorHabitacionProps = {
+  data: BodaData
+  callNumber?: string
+  callLabel?: string
+}
+
+export default function CotizadorHabitacion({ data, callNumber, callLabel }: CotizadorHabitacionProps) {
   // Estados numéricos
   const [adultos, setAdultos] = useState(2)
   const [menores, setMenores] = useState(0)
@@ -17,10 +23,7 @@ export default function CotizadorHabitacion({ data }: { data: BodaData }) {
   const [adultosStr, setAdultosStr] = useState('2')
   const [menoresStr, setMenoresStr] = useState('0')
 
-  const nights = useMemo(
-    () => nightsBetween(data.hospedaje.inicioISO, data.hospedaje.finISO),
-    [data.hospedaje]
-  )
+  const nights = useMemo(() => nightsBetween(data.hospedaje.inicioISO, data.hospedaje.finISO), [data.hospedaje])
 
   const occupancyAdults = Math.min(4, Math.max(1, adultos))
   const maxMenores = Math.max(0, data.cotizador.maxOccupancy - occupancyAdults)
@@ -75,8 +78,7 @@ export default function CotizadorHabitacion({ data }: { data: BodaData }) {
   if (adultos < 1) warnings.push('Debe haber al menos 1 adulto por habitación.')
   if (adultos + menores > data.cotizador.maxOccupancy)
     warnings.push(`Máximo ${data.cotizador.maxOccupancy} personas por habitación (adultos + menores).`)
-  if (nights < data.cotizador.minNights)
-    warnings.push(`Mínimo ${data.cotizador.minNights} noches para esta tarifa.`)
+  if (nights < data.cotizador.minNights) warnings.push(`Mínimo ${data.cotizador.minNights} noches para esta tarifa.`)
 
   const disabled = warnings.length > 0
 
@@ -116,19 +118,16 @@ export default function CotizadorHabitacion({ data }: { data: BodaData }) {
 
         <div className="rounded-xl border border-neutral-200 p-4">
           <p className="text-sm text-neutral-600">
-            Ocupación seleccionada{' '}
-            <span className="font-medium">{occupancyLabel}</span> ({adultos} adulto(s)
+            Ocupación seleccionada <span className="font-medium">{occupancyLabel}</span> ({adultos} adulto(s)
             {menores > 0 ? ` + ${menores} menor(es)` : ''})
           </p>
 
           {occupancyAdults === 1 ? (
-            <p className="mt-2">
-              Tarifa: {formatCurrency(data.cotizador.singlePerRoomPerNight, 'MXN')} / noche (habitación)
-            </p>
+            <p className="mt-2">Tarifa: {formatCurrency(data.cotizador.singlePerRoomPerNight, 'MXN')} / noche (habitación)</p>
           ) : (
             <p className="mt-2">
-              Tarifa: {formatCurrency(perAdultRate ?? 0, 'MXN')} / noche / adulto • Menores{' '}
-              {data.cotizador.childPolicy.minAge}-{data.cotizador.childPolicy.maxAge} años:{' '}
+              Tarifa: {formatCurrency(perAdultRate ?? 0, 'MXN')} / noche / adulto • Menores {data.cotizador.childPolicy.minAge}-
+              {data.cotizador.childPolicy.maxAge} años:{' '}
               <strong>
                 {data.cotizador.childPolicy.pricePerNight === 0
                   ? 'GRATIS'
@@ -143,9 +142,7 @@ export default function CotizadorHabitacion({ data }: { data: BodaData }) {
           </p>
 
           <Divider className="my-3" />
-          <p className="text-lg font-semibold">
-            Total estimado: {formatCurrency(total, 'MXN')}
-          </p>
+          <p className="text-lg font-semibold">Total estimado: {formatCurrency(total, 'MXN')}</p>
 
           {/* Apartado (sin botón extra) */}
           <div className="mt-2 flex items-center gap-2">
@@ -171,17 +168,28 @@ export default function CotizadorHabitacion({ data }: { data: BodaData }) {
           </div>
         )}
 
-        <div className="pt-2">
+        <div className="pt-2 flex flex-col gap-3">
           <Button
             color="success"
             endContent={<ChevronRight className="w-4 h-4" />}
             isDisabled={disabled}
-            onPress={() =>
-              emitOpenRSVP({ adultos, menores, nights, total, occupancyLabel })
-            }
+            onPress={() => emitOpenRSVP({ adultos, menores, nights, total, occupancyLabel })}
           >
             Reservar esta opción
           </Button>
+
+          {/* Botón llamar (dentro del wizard) */}
+          {callNumber ? (
+            <Button
+              as="a"
+              href={`tel:${callNumber}`}
+              variant="bordered"
+              startContent={<Phone className="w-4 h-4" />}
+              className="w-full"
+            >
+              {callLabel ?? 'Llamar'}
+            </Button>
+          ) : null}
         </div>
       </CardBody>
     </Card>

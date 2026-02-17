@@ -13,11 +13,15 @@ export default function RSVPModal({
   onOpenChange,
   boda,
   preset,
+  callNumber,
+  callLabel,
 }: {
   open: boolean
   onOpenChange: (v: boolean) => void
   boda: BodaData
   preset?: { adultos: number; menores: number; nights: number; total: number; occupancyLabel: string }
+  callNumber?: string
+  callLabel?: string
 }) {
   const [form, setForm] = useState({
     nombre: '',
@@ -96,9 +100,27 @@ export default function RSVPModal({
             </ModalBody>
 
             <ModalFooter className="flex flex-wrap gap-2">
-              <Button as={Link} href={waHref} target="_blank" color="success" startContent={<Phone className="w-4 h-4" />}>
+              <Button
+                as={Link}
+                href={waHref}
+                target="_blank"
+                color="success"
+                startContent={<Phone className="w-4 h-4" />}
+              >
                 Confirmar por WhatsApp
               </Button>
+
+              {callNumber ? (
+                <Button
+                  as="a"
+                  href={`tel:${callNumber}`}
+                  variant="bordered"
+                  startContent={<Phone className="w-4 h-4" />}
+                >
+                  {callLabel ?? 'Llamar'}
+                </Button>
+              ) : null}
+
               <Button variant="flat" onPress={onClose}>
                 Cancelar
               </Button>

@@ -3,7 +3,13 @@ import { useEffect, useState } from 'react'
 import RSVPModal from './RSVPModal'
 import { BodaData } from './types'
 
-export default function ClientRSVPMount({ data }: { data: BodaData }) {
+type ClientRSVPMountProps = {
+  data: BodaData
+  callNumber?: string
+  callLabel?: string
+}
+
+export default function ClientRSVPMount({ data, callNumber, callLabel }: ClientRSVPMountProps) {
   const [open, setOpen] = useState(false)
   const [preset, setPreset] = useState<any>(undefined)
 
@@ -17,5 +23,14 @@ export default function ClientRSVPMount({ data }: { data: BodaData }) {
     return () => window.removeEventListener('rsvp:open', handler as EventListener)
   }, [])
 
-  return <RSVPModal open={open} onOpenChange={setOpen} boda={data} preset={preset} />
+  return (
+    <RSVPModal
+      open={open}
+      onOpenChange={setOpen}
+      boda={data}
+      preset={preset}
+      callNumber={callNumber}
+      callLabel={callLabel}
+    />
+  )
 }

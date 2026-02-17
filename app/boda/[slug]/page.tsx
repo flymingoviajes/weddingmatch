@@ -18,7 +18,8 @@ import HotelOverview from '@/components/boda/HotelOverview'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 30
-
+const FLYMINGO_WEDDINGS_CALL_NUMBER = '528716887385' // +52 871 688 7385
+const FLYMINGO_WEDDINGS_CALL_LABEL = 'Llamar a Flymingo Weddings'
 // ===== DEMO con los datos de Ana Karla & Alan =====
 const DEMO: BodaData = {
   slug: 'ana-karla-y-alan-2026',
@@ -434,8 +435,25 @@ export default async function Page({ params }: { params: Promise<Params> }) {
             {data.galeria?.images?.length ? <GalleryCarousel images={data.galeria.images} /> : null}
             {/* Overview del hotel */}
             {data.hotelOverview ? <HotelOverview hotelName={data.hotel.nombre} data={data.hotelOverview} /> : null}
+             {/* CTA: Llamar a Flymingo Weddings */}
+      <section className="max-w-6xl mx-auto px-4 pt-6">
+        <a
+          href={`tel:${FLYMINGO_WEDDINGS_CALL_NUMBER}`}
+          className="w-full inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-semibold shadow-sm border border-neutral-200 bg-white hover:bg-neutral-50"
+        >
+          <span aria-hidden>📞</span>
+          {FLYMINGO_WEDDINGS_CALL_LABEL}
+        </a>
+        <p className="mt-2 text-sm text-neutral-500 text-center">
+          Atención Flymingo Weddings
+        </p>
+      </section>
             <TarifasGrid data={data} />
-            <CotizadorHabitacion data={data} />
+            <CotizadorHabitacion
+              data={data}
+              callNumber={FLYMINGO_WEDDINGS_CALL_NUMBER}
+              callLabel={FLYMINGO_WEDDINGS_CALL_LABEL}
+            />
             <AgendaGrid data={data} />
             <FAQList data={data} />
           </div>
@@ -446,7 +464,11 @@ export default async function Page({ params }: { params: Promise<Params> }) {
       </section>
 
       <FooterCTA data={data} />
-      <ClientRSVPMount data={data} />
+      <ClientRSVPMount
+  data={data}
+  callNumber={FLYMINGO_WEDDINGS_CALL_NUMBER}
+  callLabel={FLYMINGO_WEDDINGS_CALL_LABEL}
+/>
     </Suspense>
   )
 }
