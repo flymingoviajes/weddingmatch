@@ -285,7 +285,7 @@ const DEMO3: BodaData = {
 
   links: {
     whatsapp:
-      'https://wa.me/528716887385?text=%2Fconfirmar%20Quiero%20ir%20a%20la%20boda%20de%20Marina%20Gu%C3%ADzar%20%26%20Ren%C3%A9%20Sierra%20%28AVA%20Resort%20Canc%C3%BAn%2C%2006%E2%80%9309%20nov%202026%29.%20Somos%20___%20adultos%20y%20___%20menores.%20Mi%20nombre%20es%20______.%20Ref%3A%20marina-guizar-y-rene-sierra-2026',
+      'https://wa.me/528715816903?text=%2Fconfirmar%20Quiero%20ir%20a%20la%20boda%20de%20Marina%20Gu%C3%ADzar%20%26%20Ren%C3%A9%20Sierra%20%28AVA%20Resort%20Canc%C3%BAn%2C%2006%E2%80%9309%20nov%202026%29.%20Somos%20___%20adultos%20y%20___%20menores.%20Mi%20nombre%20es%20______.%20Ref%3A%20marina-guizar-y-rene-sierra-2026',
     pago: '',
     terminosPDF: '',
     infoHotel: ''
