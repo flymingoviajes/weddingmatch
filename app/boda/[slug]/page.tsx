@@ -399,11 +399,218 @@ const DEMO3: BodaData = {
   }
 }
 
+
+
+
+// ===== DEMO con los datos de Margarita Duran & Martin Vega =====
+const DEMO4: BodaData = {
+  slug: 'margarita-duran-y-martin-vega-2027',
+  nombresNovios: 'Margarita Duran & Martin Vega',
+  fechaEventoISO: '2027-08-07T17:00:00-05:00', // hora placeholder, ajustable
+  subtitulo: 'Hard Rock Hotel Riviera Maya — 05 al 08 de agosto de 2027',
+  portadaUrl: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/boda%20margarita/WhatsApp%20Image%202026-03-20%20at%2012.28.33%20PM%20(4).jpeg',
+
+  hospedaje: {
+    inicioISO: '2027-08-05T15:00:00-05:00',
+    finISO: '2027-08-08T12:00:00-05:00'
+  },
+
+  hotel: {
+    nombre: 'Hard Rock Hotel Riviera Maya',
+    direccion: 'Km 72, Carretera Cancún-Tulum, Puerto Aventuras, Riviera Maya, Quintana Roo, México',
+    web: '',
+    telefono: '',
+    mapaIframe: ''
+  },
+
+  bloqueHabitaciones: {
+    codigo: '',
+    fechaLimite: '',
+    nochesMin: 3,
+    nota: 'Mínimo 3 noches. Tarifas por habitación por noche. Sujetos a cambios y disponibilidad.'
+  },
+
+  tarifas: [
+    {
+      titulo: 'Deluxe Gold Double Beds — SGL',
+      precioDesde: 10316,
+      moneda: 'MXN',
+      por: 'noche',
+      ocupacion: '1 adulto',
+      minNoches: 3
+    },
+    {
+      titulo: 'Deluxe Gold Double Beds — DBL',
+      precioDesde: 10316,
+      moneda: 'MXN',
+      por: 'noche',
+      ocupacion: '2 adultos',
+      minNoches: 3
+    },
+    {
+      titulo: 'Deluxe Gold Double Beds — TPL',
+      precioDesde: 11940,
+      moneda: 'MXN',
+      por: 'noche',
+      ocupacion: '3 adultos',
+      minNoches: 3
+    },
+    {
+      titulo: 'Menor (03–12 años)',
+      precioDesde: 0,
+      moneda: 'MXN',
+      por: 'persona',
+      ocupacion: 'Gratis compartiendo',
+      minNoches: 3
+    },
+    {
+      titulo: 'Junior (13–17 años)',
+      precioDesde: 1625,
+      moneda: 'MXN',
+      por: 'persona',
+      ocupacion: 'Adolescentes 13–17',
+      minNoches: 3
+    }
+  ],
+
+  agenda: [
+    { titulo: 'Ceremonia', detalle: 'Por definir', icon: 'ceremonia' },
+    { titulo: 'Coctel / Recepción', detalle: 'Por definir', icon: 'otro' }
+  ],
+
+  faq: [
+    {
+      q: '¿Incluye vuelos?',
+      a: 'En este cotizador solo se incluyen las tarifas del hospedaje. Si requieres vuelos, puedes solicitarlos con tu agente Flymingo.'
+    },
+    {
+      q: '¿Mínimo de noches?',
+      a: '3 noches (05–08 agosto 2027).'
+    },
+    {
+      q: '¿Capacidad por habitación?',
+      a: 'La capacidad depende de la categoría y ocupación máxima permitida por el hotel.'
+    },
+    {
+      q: '¿Menores?',
+      a: 'Menores de 03 a 12 años gratis compartiendo habitación, sujetos a políticas del hotel.'
+    },
+    {
+      q: '¿Juniors 13–17?',
+      a: 'Los adolescentes de 13 a 17 años tienen un cargo adicional de $1,625 MXN por persona por noche.'
+    }
+  ],
+
+  links: {
+    whatsapp: '',
+    pago: '',
+    terminosPDF: '',
+    infoHotel: ''
+  },
+
+  rsvpMode: 'form',
+
+  cotizador: {
+    singlePerRoomPerNight: 10316,
+    doublePerAdultPerNight: 10316 / 2,
+    triplePerAdultPerNight: 11940 / 3,
+    quadPerAdultPerNight: 0,
+    childPolicy: {
+      minAge: 3,
+      maxAge: 12,
+      pricePerNight: 0
+    },
+    minNights: 3,
+    maxOccupancy: 4
+  },
+
+  galeria: {
+    images: [
+       { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/boda%20margarita/HARDROCKHOTEL-65.jpeg', caption: 'Hotel Hard Rock Riviera Maya' },
+        { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/boda%20margarita/Experiencias-en-la-Piscina-RockawayBay-Hard-Rock-Hotel-Riviera-Maya.jpg', caption: 'Instalaciones' },
+        { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/boda%20margarita/83483c19.webp', caption: 'Instalaciones' }
+    ]
+  },
+
+  hotelOverview: {
+    descripcion:
+      'Hard Rock Hotel Riviera Maya es un resort de lujo todo incluido ubicado en la Riviera Maya, México. Combina el estilo icónico del rock & roll con instalaciones modernas, excelente servicio y una amplia oferta gastronómica, entretenimiento y actividades para huéspedes de todas las edades.',
+
+    secciones: [
+      {
+        titulo: 'Amenidades en las habitaciones',
+        bullets: [
+          'Tina de hidromasaje o jacuzzi dentro de la habitación',
+          'Balcón o terraza privada',
+          'Minibar con refrescos, agua, jugos y cerveza',
+          'Aire acondicionado con control individual',
+          'Televisión de pantalla plana con canales internacionales',
+          'Wi-Fi gratuito',
+          'Cafetera en la habitación',
+          'Caja de seguridad digital',
+          'Batas de baño y pantuflas',
+          'Amenidades de baño Rock Spa®',
+          'Secadora de cabello',
+          'Plancha y tabla de planchar',
+          'Servicio a la habitación las 24 horas'
+        ]
+      },
+      {
+        titulo: 'Restaurantes',
+        bullets: [
+          'The Market – buffet con cocina internacional',
+          'Frida – gastronomía mexicana tradicional',
+          'Zen – cocina asiática con sushi y teppanyaki',
+          'Toro – steakhouse con cortes premium',
+          'Ciao – restaurante italiano',
+          'Ipanema – brasileño estilo rodizio',
+          'Le Petit Cochon – bistro francés',
+          'Pizzeto – pizzas artesanales al horno de leña',
+          'Caffeto – café, postres y snacks'
+        ]
+      },
+      {
+        titulo: 'Albercas y playa',
+        bullets: [
+          'Grandes albercas familiares en Hacienda con actividades y bar dentro de la piscina',
+          'Alberca para niños con juegos de agua y toboganes',
+          'Albercas tranquilas en Heaven, solo adultos, con bares y ambiente relajado',
+          'Playa privada y cala natural para nadar en aguas tranquilas',
+          'Rockaway Bay Water Park con múltiples toboganes'
+        ]
+      },
+      {
+        titulo: 'Kids Club y clubes para jóvenes',
+        bullets: [
+          'Roxity Kids Club para niños aproximadamente de 4 a 12 años',
+          'Vibe City (Teen Club) con videojuegos',
+          'Boliche',
+          'Láser tag',
+          'Actividades musicales',
+          'Salas de juegos y entretenimiento'
+        ]
+      },
+      {
+        titulo: 'Entretenimiento y actividades',
+        bullets: [
+          'Espectáculos nocturnos y música en vivo',
+          'Deportes acuáticos como kayak y snorkel',
+          'Actividades en alberca y playa',
+          'Gimnasio y clases de fitness',
+          'Spa de lujo con múltiples tratamientos',
+          'Shows y entretenimiento temático'
+        ]
+      }
+    ]
+  }
+}
+
 // ===== Data loader local (reemplaza luego por Supabase) =====
 async function getBodaData(slug: string): Promise<BodaData | null> {
   if (slug === DEMO.slug) return DEMO
   if (slug === DEMO2.slug) return DEMO2
   if (slug === DEMO3.slug) return DEMO3
+  if (slug === DEMO4.slug) return DEMO4
   return null
 }
 
