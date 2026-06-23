@@ -406,7 +406,7 @@ const DEMO3: BodaData = {
 const DEMO4: BodaData = {
   slug: 'margarita-duron-y-martin-vega-2027',
   nombresNovios: 'Margarita Durón & Martin Vega',
-  fechaEventoISO: '2027-08-07T17:00:00-05:00', // hora placeholder, ajustable
+  fechaEventoISO: '2027-08-06T17:00:00-05:00', // hora placeholder, ajustable
   subtitulo: 'Hard Rock Hotel Riviera Maya — 05 al 08 de agosto de 2027',
   portadaUrl: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/boda%20margarita/WhatsApp%20Image%202026-03-20%20at%2012.28.33%20PM%20(4).jpeg',
 
