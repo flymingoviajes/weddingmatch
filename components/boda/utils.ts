@@ -28,6 +28,18 @@ export function nightsBetween(startISO: string, endISO: string) {
   return Math.max(0, Math.round(ms / (1000 * 60 * 60 * 24)));
 }
 
+/** Días que faltan a partir de ahora (redondeado hacia arriba). Negativo si ya pasó. */
+export function daysUntil(iso: string) {
+  const ms = new Date(iso).getTime() - Date.now();
+  return Math.ceil(ms / (1000 * 60 * 60 * 24));
+}
+
+/** true si ya pasó la fecha límite de tarifa de grupo (o no hay fecha límite -> false) */
+export function isVencido(fechaLimite?: string) {
+  if (!fechaLimite) return false;
+  return daysUntil(fechaLimite) <= 0;
+}
+
 /**
  * Genera un data-URI ICS para “Agregar al calendario”.
  * Usamos UTC en DTSTART/DTEND como recomienda el formato iCal.

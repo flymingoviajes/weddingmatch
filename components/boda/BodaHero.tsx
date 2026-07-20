@@ -5,7 +5,7 @@ import { Chip } from '@heroui/react'
 import { Link } from '@heroui/react'
 import { Copy, CalendarDays, MapPin, ChevronRight } from 'lucide-react'
 import { BodaData } from './types'
-import { formatDateLong, icsFromEvent } from './utils'
+import { formatDateLong, icsFromEvent, daysUntil } from './utils'
 import { emitOpenRSVP } from './rsvpBus'
 
 export default function BodaHero({ data }: { data: BodaData }) {
@@ -15,6 +15,8 @@ export default function BodaHero({ data }: { data: BodaData }) {
     data.fechaEventoISO,
     6
   )
+
+  const dias = daysUntil(data.fechaEventoISO)
 
   const copyLink = async () => {
     try {
@@ -63,6 +65,11 @@ export default function BodaHero({ data }: { data: BodaData }) {
           >
             {data.hotel.nombre}
           </Chip>
+          {dias > 0 && (
+            <Chip className="backdrop-blur bg-primary/90 text-white font-medium border-0">
+              Faltan {dias} {dias === 1 ? 'día' : 'días'} para la boda
+            </Chip>
+          )}
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">

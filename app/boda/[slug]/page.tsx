@@ -2,6 +2,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
+import { Hotel } from 'lucide-react'
 
 import BodaHero from '@/components/boda/BodaHero'
 import TarifasGrid from '@/components/boda/TarifasGrid'
@@ -164,9 +165,10 @@ const DEMO2: BodaData = {
     { q: '¿Mínimo de noches?', a: '3 noches (16–19 octubre 2026).' },
     { q: '¿Capacidad por habitación?', a: 'Máximo 4 personas (adultos y menores).' },
     { q: '¿Menores?', a: '0–12 años gratis compartiendo con adultos (según políticas del hotel).' },
-    { q: '¿Cuál es la fecha límite para pagar y confirmar?', a: 'El 1 de agosto de 2026. Después de esta fecha será necesario recotizar las habitaciones, ya que las tarifas están sujetas a cambios y disponibilidad.' },
-    { q: '¿Puedo asistir a la boda sin hospedarme en el hotel?', a: 'El acceso a la boda sin hospedaje está sujeto a revisión con el hotel y con los novios, debido a la disponibilidad limitada de este tipo de pases. Contáctanos para validar tu caso.' }
+    { q: '¿Cuál es la fecha límite para pagar y confirmar?', a: 'El 1 de agosto de 2026. Después de esta fecha vence el beneficio de tarifa de grupo de esta boda y será necesario recotizar las habitaciones.' }
   ],
+  avisoAccesoSinHospedaje:
+    'Al ser una boda dentro de un hotel, el acceso al evento es exclusivo para quienes se hospedan ahí, sujeto a la disponibilidad y políticas del hotel y del grupo. Si tienes alguna situación en particular, coméntasela directamente a los novios.',
   links: {
     whatsapp:
       'https://wa.me/528716887385?text=%2Fconfirmar%20Quiero%20ir%20a%20la%20boda%20de%20Mar%C3%ADa%20Teresa%20%26%20Jorge%20Emilio%20%28Hard%20Rock%20Hotel%20Los%20Cabos%2C%2016%E2%80%9319%20oct%202026%29.%20Somos%20___%20adultos%20y%20___%20menores.%20Mi%20nombre%20es%20______.%20Ref%3A%20maria-teresa-y-jorge-emilio-2026',
@@ -641,6 +643,18 @@ export default async function Page({ params }: { params: Promise<Params> }) {
   return (
     <Suspense>
       <BodaHero data={data} />
+
+      {data.avisoAccesoSinHospedaje && (
+        <section className="max-w-6xl mx-auto px-4 pt-6">
+          <div className="rounded-xl border border-primary-300 bg-primary-50 dark:bg-primary-100/10 p-5 flex items-start gap-3">
+            <Hotel className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+            <div>
+              <p className="font-display text-lg text-primary">Es importante que te hospedes con nosotros</p>
+              <p className="mt-1 text-foreground/80 font-medium">{data.avisoAccesoSinHospedaje}</p>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

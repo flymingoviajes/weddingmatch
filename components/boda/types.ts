@@ -66,6 +66,8 @@ export interface BodaData {
   }
   rsvpMode?: 'form' | 'whatsapp'
   cotizador: CotizadorRules
+  /** Aviso prominente (banner) sobre acceso al evento sin hospedarse en el hotel sede */
+  avisoAccesoSinHospedaje?: string
 }
 
 export interface GalleryImage {

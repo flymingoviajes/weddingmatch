@@ -4,9 +4,9 @@ import { Card, CardBody, CardHeader } from '@heroui/react'
 import { Divider } from '@heroui/divider'
 import { Button } from '@heroui/button'
 import { Input } from '@heroui/input'
-import { AlertCircle, Calculator, ChevronRight, Phone, Plus, Trash2, Wallet } from 'lucide-react'
+import { AlertCircle, Calculator, ChevronRight, Phone, Plus, Trash2, TriangleAlert, Wallet } from 'lucide-react'
 import { BodaData } from './types'
-import { formatCurrency, nightsBetween } from './utils'
+import { formatCurrency, nightsBetween, isVencido } from './utils'
 import { emitOpenRSVP } from './rsvpBus'
 
 type CotizadorHabitacionProps = {
@@ -27,6 +27,7 @@ function makeRoom(adultos = 2, menores = 0): Room {
 export default function CotizadorHabitacion({ data, callNumber, callLabel }: CotizadorHabitacionProps) {
   const [rooms, setRooms] = useState<Room[]>([makeRoom(2, 0)])
 
+  const vencido = isVencido(data.bloqueHabitaciones?.fechaLimite)
   const nights = useMemo(() => nightsBetween(data.hospedaje.inicioISO, data.hospedaje.finISO), [data.hospedaje])
   const maxOccupancy = data.cotizador.maxOccupancy
 
@@ -116,6 +117,15 @@ export default function CotizadorHabitacion({ data, callNumber, callLabel }: Cot
       </CardHeader>
       <Divider />
       <CardBody className="space-y-4">
+        {vencido && (
+          <div className="rounded-xl border border-danger-300 bg-danger-50 dark:bg-danger-100/10 p-4 flex items-start gap-3">
+            <TriangleAlert className="w-5 h-5 text-danger-600 mt-0.5 shrink-0" />
+            <p className="text-base font-medium text-danger-700 dark:text-danger-400">
+              Esta cotización usa tarifas de grupo vencidas — el total de abajo es solo referencial. Contáctanos para obtener el precio actualizado.
+            </p>
+          </div>
+        )}
+
         <div className="space-y-4">
           {roomsComputed.map(({ room, occupancyAdults, maxMenores, perAdultRate, subtotal, warnings }, i) => (
             <div key={room.id} className="rounded-xl border border-divider p-4">
@@ -210,7 +220,10 @@ export default function CotizadorHabitacion({ data, callNumber, callLabel }: Cot
           </p>
 
           <Divider className="my-3" />
-          <p className="font-display text-2xl text-primary">Total estimado: {formatCurrency(granTotal, 'MXN')}</p>
+          <p className={`font-display text-2xl ${vencido ? 'text-foreground/40 line-through' : 'text-primary'}`}>
+            Total estimado: {formatCurrency(granTotal, 'MXN')}
+          </p>
+          {vencido && <p className="text-sm text-danger-600 font-medium mt-1">Tarifa vencida — solo referencial</p>}
 
           <div className="mt-2 flex items-center gap-2">
             <Wallet className="w-4 h-4 text-primary" />
@@ -237,7 +250,8 @@ export default function CotizadorHabitacion({ data, callNumber, callLabel }: Cot
 
         <div className="pt-2 flex flex-col gap-3">
           <Button
-            color="success"
+            color={vencido ? 'danger' : 'success'}
+            variant={vencido ? 'flat' : 'solid'}
             endContent={<ChevronRight className="w-4 h-4" />}
             isDisabled={disabled}
             onPress={() =>
@@ -247,11 +261,11 @@ export default function CotizadorHabitacion({ data, callNumber, callLabel }: Cot
                 nights,
                 total: granTotal,
                 habitaciones: rooms.length,
-                resumen,
+                resumen: vencido ? `${resumen} (tarifa vencida, requiere recotización)` : resumen,
               })
             }
           >
-            Reservar estas habitaciones
+            {vencido ? 'Solicitar cotización actualizada' : 'Reservar estas habitaciones'}
           </Button>
 
           {callNumber ? (
