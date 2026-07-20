@@ -51,7 +51,7 @@ export default function GalleryCarousel({ images }: { images: GalleryImage[] }) 
   return (
     <section className="space-y-3">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Galería del hotel</h2>
+        <h2 className="font-display text-xl">Galería del hotel</h2>
         <div className="flex items-center gap-2">
           <Button isIconOnly variant="flat" onPress={prev} aria-label="Anterior">
             <ChevronLeft className="w-5 h-5" />
@@ -62,7 +62,7 @@ export default function GalleryCarousel({ images }: { images: GalleryImage[] }) 
         </div>
       </div>
 
-      <Card className="overflow-hidden border border-neutral-200">
+      <Card className="overflow-hidden border border-divider">
         <div
           ref={viewportRef}
           className="relative flex overflow-x-auto snap-x snap-mandatory no-scrollbar"
@@ -144,7 +144,7 @@ export default function GalleryCarousel({ images }: { images: GalleryImage[] }) 
                   />
                 </div>
                 {images[index]?.caption && (
-                  <p className="text-center text-sm text-neutral-600">
+                  <p className="text-center text-sm text-foreground/60">
                     {images[index].caption}
                   </p>
                 )}

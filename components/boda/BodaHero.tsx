@@ -38,11 +38,11 @@ export default function BodaHero({ data }: { data: BodaData }) {
       </div>
 
       <div className="relative max-w-6xl mx-auto px-4 py-24 sm:py-28 text-white">
-        <Chip variant="shadow" color="success" className="mb-4 backdrop-blur">
+        <Chip variant="bordered" className="mb-4 border-white/30 bg-white/10 text-white backdrop-blur">
           Información para invitados
         </Chip>
 
-        <h1 className="text-4xl sm:text-6xl font-semibold tracking-tight drop-shadow">
+        <h1 className="font-display text-4xl sm:text-6xl tracking-tight drop-shadow">
           {data.nombresNovios}
         </h1>
 

@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@heroui/react'
 import { Button } from '@heroui/button'
 import { Input } from '@heroui/input'
@@ -19,7 +19,7 @@ export default function RSVPModal({
   open: boolean
   onOpenChange: (v: boolean) => void
   boda: BodaData
-  preset?: { adultos: number; menores: number; nights: number; total: number; occupancyLabel: string }
+  preset?: { adultos: number; menores: number; nights: number; total: number; occupancyLabel?: string; habitaciones?: number; resumen?: string }
   callNumber?: string
   callLabel?: string
 }) {
@@ -29,9 +29,22 @@ export default function RSVPModal({
     telefono: '',
     adultos: preset?.adultos ?? 2,
     menores: preset?.menores ?? 0,
-    comentarios: '',
+    comentarios: preset?.resumen ? `Cotización: ${preset.resumen}` : '',
   })
   const onChange = (k: keyof typeof form, v: any) => setForm((s) => ({ ...s, [k]: v }))
+
+  // El modal se monta una sola vez (ClientRSVPMount) y se reabre con distintos presets,
+  // así que hay que resincronizar estos campos cada vez que se abre.
+  useEffect(() => {
+    if (!open) return
+    setForm((s) => ({
+      ...s,
+      adultos: preset?.adultos ?? s.adultos,
+      menores: preset?.menores ?? s.menores,
+      comentarios: preset?.resumen ? `Cotización: ${preset.resumen}` : s.comentarios,
+    }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, preset])
 
   // WhatsApp solicitado (mensaje EXACTO)
   const waNumber = '528715816903'
@@ -72,7 +85,7 @@ export default function RSVPModal({
                   type="number"
                   label="Adultos"
                   min={1}
-                  max={4}
+                  max={20}
                   value={String(form.adultos)}
                   onChange={(e) => onChange('adultos', Number(e.target.value))}
                 />
@@ -80,7 +93,7 @@ export default function RSVPModal({
                   type="number"
                   label="Menores"
                   min={0}
-                  max={4}
+                  max={20}
                   value={String(form.menores)}
                   onChange={(e) => onChange('menores', Number(e.target.value))}
                 />

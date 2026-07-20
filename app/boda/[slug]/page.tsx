@@ -143,9 +143,9 @@ const DEMO2: BodaData = {
   },
   bloqueHabitaciones: {
     codigo: 'FLY HLC 161026',
-    fechaLimite: '',
+    fechaLimite: '2026-08-01',
     nochesMin: 3,
-    nota: 'Mínimo 3 noches. Tarifas sujetas a cambios y disponibilidad.'
+    nota: 'Mínimo 3 noches. Fecha límite de pago y confirmación: 1 de agosto de 2026. Después de esta fecha será necesario recotizar las habitaciones, ya que las tarifas están sujetas a cambios y disponibilidad.'
   },
   // IMPORTANTE: estas tarifas son POR HABITACIÓN POR NOCHE (SGL/DBL/TPL)
   tarifas: [
@@ -163,7 +163,9 @@ const DEMO2: BodaData = {
     { q: '¿Incluye vuelos?', a: 'No, solo hospedaje. Puedes cotizar vuelos con tu agente Flymingo.' },
     { q: '¿Mínimo de noches?', a: '3 noches (16–19 octubre 2026).' },
     { q: '¿Capacidad por habitación?', a: 'Máximo 4 personas (adultos y menores).' },
-    { q: '¿Menores?', a: '0–12 años gratis compartiendo con adultos (según políticas del hotel).' }
+    { q: '¿Menores?', a: '0–12 años gratis compartiendo con adultos (según políticas del hotel).' },
+    { q: '¿Cuál es la fecha límite para pagar y confirmar?', a: 'El 1 de agosto de 2026. Después de esta fecha será necesario recotizar las habitaciones, ya que las tarifas están sujetas a cambios y disponibilidad.' },
+    { q: '¿Puedo asistir a la boda sin hospedarme en el hotel?', a: 'El acceso a la boda sin hospedaje está sujeto a revisión con el hotel y con los novios, debido a la disponibilidad limitada de este tipo de pases. Contáctanos para validar tu caso.' }
   ],
   links: {
     whatsapp:
@@ -651,12 +653,12 @@ export default async function Page({ params }: { params: Promise<Params> }) {
       <section className="max-w-6xl mx-auto px-4 pt-6">
         <a
           href={`tel:${FLYMINGO_WEDDINGS_CALL_NUMBER}`}
-          className="w-full inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-semibold shadow-sm border border-neutral-200 bg-white hover:bg-neutral-50"
+          className="w-full inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-semibold shadow-sm border border-divider bg-content1 hover:bg-content2"
         >
           <span aria-hidden>📞</span>
           {FLYMINGO_WEDDINGS_CALL_LABEL}
         </a>
-        <p className="mt-2 text-sm text-neutral-500 text-center">
+        <p className="mt-2 text-sm text-foreground/50 text-center">
           Atención Flymingo Weddings
         </p>
       </section>

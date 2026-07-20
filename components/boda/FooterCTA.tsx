@@ -15,11 +15,11 @@ export default function FooterCTA({ data }: { data: BodaData }) {
   )
 
   return (
-    <section className="bg-white border-t border-neutral-200">
+    <section className="bg-content1 border-t border-divider">
       <div className="max-w-6xl mx-auto px-4 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
-          <p className="text-lg font-medium">¿Listo para confirmar tu asistencia?</p>
-          <p className="text-neutral-600">Reserva con las tarifas del grupo y asegura tu lugar en la boda.</p>
+          <p className="font-display text-lg">¿Listo para confirmar tu asistencia?</p>
+          <p className="text-foreground/60">Reserva con las tarifas del grupo y asegura tu lugar en la boda.</p>
         </div>
         <div className="flex gap-3">
           <Button color="success" onPress={() => emitOpenRSVP()}>

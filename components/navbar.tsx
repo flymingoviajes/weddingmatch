@@ -38,27 +38,27 @@ export const Navbar = () => {
       position="sticky"
       className={clsx(
         "backdrop-blur supports-[backdrop-filter]:bg-content1/70 bg-content1/60",
-        "border-b border-default-200/60"
+        "border-b border-divider"
       )}
     >
       {/* Brand + Desktop nav */}
       <NavbarContent className="basis-1/2" justify="start">
         <NavbarBrand as="li" className="gap-2 max-w-fit">
           <NextLink className="flex items-center gap-2" href="/">
-            {/* Si tienes logo, colócalo aquí */}
-            {/* <Logo /> */}
-            <span className="text-lg font-bold">Flymingo Weddings</span>
+            <span className="font-display text-xl font-medium tracking-tight">
+              Flymingo <span className="text-primary italic">Weddings</span>
+            </span>
           </NextLink>
         </NavbarBrand>
 
-        <ul className="hidden lg:flex gap-2 ml-4">
+        <ul className="hidden lg:flex gap-2 ml-6">
           {navItems.map((item) => (
             <NavbarItem key={item.href}>
               <NextLink
                 href={item.href}
                 className={clsx(
                   linkStyles({ color: "foreground" }),
-                  "px-2 py-1 rounded-medium transition-colors",
+                  "px-2 py-1 rounded-medium transition-colors font-sans text-sm",
                   isActive(item.href) && "text-primary font-medium"
                 )}
               >

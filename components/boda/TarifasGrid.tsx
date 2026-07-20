@@ -11,11 +11,11 @@ import { emitOpenRSVP } from './rsvpBus'
 
 export default function TarifasGrid({ data }: { data: BodaData }) {
   return (
-    <Card shadow="sm" className="border border-neutral-200">
+    <Card shadow="sm" className="border border-divider">
       <CardHeader className="flex justify-between items-center">
         <div>
-          <p className="text-sm text-neutral-500">Bloque de habitaciones</p>
-          <h2 className="text-xl font-semibold">Tarifas oficiales para invitados</h2>
+          <p className="text-sm text-foreground/50">Bloque de habitaciones</p>
+          <h2 className="font-display text-xl">Tarifas oficiales para invitados</h2>
         </div>
         {data.bloqueHabitaciones?.fechaLimite && (
           <Chip color="warning" variant="flat">
@@ -27,11 +27,11 @@ export default function TarifasGrid({ data }: { data: BodaData }) {
       <CardBody className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {data.tarifas.map((t: Tarifa, i: number) => (
-            <Card key={i} shadow="none" className="border border-neutral-200">
+            <Card key={i} shadow="none" className="border border-divider">
               <CardHeader className="flex items-start justify-between gap-2">
                 <div>
                   <h3 className="text-base font-semibold leading-tight">{t.titulo}</h3>
-                  {t.descripcion && <p className="text-sm text-neutral-500">{t.descripcion}</p>}
+                  {t.descripcion && <p className="text-sm text-foreground/50">{t.descripcion}</p>}
                 </div>
                 {t.ocupacion && (
                   <Chip size="sm" variant="flat" startContent={<Users className="w-3.5 h-3.5" />}>
@@ -40,9 +40,9 @@ export default function TarifasGrid({ data }: { data: BodaData }) {
                 )}
               </CardHeader>
               <CardBody className="pt-0">
-                <p className="text-2xl font-semibold">
+                <p className="font-display text-2xl text-primary">
                   {formatCurrency(t.precioDesde, t.moneda)}
-                  <span className="text-sm text-neutral-500 font-normal"> / {t.por}</span>
+                  <span className="text-sm text-foreground/50 font-sans font-normal"> / {t.por}</span>
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {t.minNoches && <Chip size="sm" variant="flat">Mín. {t.minNoches} noches</Chip>}
@@ -50,7 +50,7 @@ export default function TarifasGrid({ data }: { data: BodaData }) {
                     <Chip key={idx} size="sm" variant="flat">{x}</Chip>
                   ))}
                 </div>
-                {t.notas && <p className="mt-3 text-sm text-neutral-500">{t.notas}</p>}
+                {t.notas && <p className="mt-3 text-sm text-foreground/50">{t.notas}</p>}
                 <div className="mt-5">
                   <Button
                     color="success"
@@ -67,7 +67,7 @@ export default function TarifasGrid({ data }: { data: BodaData }) {
         </div>
 
         {data.bloqueHabitaciones?.nota && (
-          <p className="text-sm text-neutral-500">{data.bloqueHabitaciones.nota}</p>
+          <p className="text-sm text-foreground/50">{data.bloqueHabitaciones.nota}</p>
         )}
 
         <div className="flex flex-wrap gap-3 pt-2">

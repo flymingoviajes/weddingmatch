@@ -19,25 +19,25 @@ const iconFor = (titulo: string) => {
 
 export default function HotelOverview({ hotelName, data }: { hotelName: string; data: HotelOverviewData }) {
   return (
-    <Card shadow="sm" className="border border-neutral-200">
+    <Card shadow="sm" className="border border-divider">
       <CardHeader className="flex flex-col items-start gap-1">
-        <p className="text-sm text-neutral-500">Conoce el hotel</p>
-        <h2 className="text-xl font-semibold">{hotelName}</h2>
+        <p className="text-sm text-foreground/50">Conoce el hotel</p>
+        <h2 className="font-display text-xl">{hotelName}</h2>
       </CardHeader>
       <Divider />
       <CardBody className="space-y-6">
-        <p className="text-neutral-700 leading-relaxed">{data.descripcion}</p>
+        <p className="text-foreground/70 leading-relaxed">{data.descripcion}</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {data.secciones.map((sec, i) => {
             const Icon = iconFor(sec.titulo)
             return (
-              <div key={i} className="p-4 rounded-xl border border-neutral-200">
+              <div key={i} className="p-4 rounded-xl border border-divider">
                 <div className="flex items-center gap-2 mb-2">
-                  <Icon className="w-5 h-5 text-success-600" />
+                  <Icon className="w-5 h-5 text-primary" />
                   <h3 className="font-medium">{sec.titulo}</h3>
                 </div>
-                <ul className="list-disc pl-5 text-neutral-700 space-y-1">
+                <ul className="list-disc pl-5 text-foreground/70 space-y-1">
                   {sec.bullets.map((b, j) => (
                     <li key={j}>{b}</li>
                   ))}

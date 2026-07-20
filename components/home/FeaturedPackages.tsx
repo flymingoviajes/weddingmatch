@@ -39,39 +39,41 @@ export default function FeaturedPackages({ limit = 6 }: { limit?: number }) {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {Array.from({ length: limit }).map((_, i) => (
-          <div key={i} className="h-64 rounded-lg bg-gray-100 animate-pulse" />
+          <div key={i} className="h-72 rounded-xl bg-content2 animate-pulse" />
         ))}
       </div>
     )
   }
 
   if (!items.length) {
-    return <div className="text-sm text-default-500">Aún no hay paquetes destacados.</div>
+    return <div className="text-sm text-foreground/60">Aún no hay paquetes destacados.</div>
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {items.map((p) => (
-        <Card key={p.id} className="border">
-          <CardHeader className="p-0 relative h-40 overflow-hidden">
+        <Card key={p.id} shadow="sm" className="border border-divider bg-content1">
+          <CardHeader className="p-0 relative h-48 overflow-hidden">
             <Image
-              src={p.hotel?.imagen_principal || 'https://images.unsplash.com/photo-1598953680797-d4c92b961d3f'}
+              src={p.hotel?.imagen_principal || 'https://images.unsplash.com/photo-1602002418082-a4443e081dd1?q=80&w=800&auto=format&fit=crop'}
               alt={p.hotel?.nombre || p.nombre}
               className="object-cover w-full h-full"
             />
           </CardHeader>
-          <CardBody className="p-4">
-            <div className="flex items-center justify-between">
-              <div className="font-semibold">{p.nombre}</div>
-              <div className="text-primary font-bold">${p.precio_base?.toLocaleString()}</div>
+          <CardBody className="p-5">
+            <div className="flex items-start justify-between gap-2">
+              <div className="font-display text-lg leading-snug">{p.nombre}</div>
+              <div className="font-display text-primary font-medium whitespace-nowrap">
+                ${p.precio_base?.toLocaleString()}
+              </div>
             </div>
-            <div className="text-sm text-default-500">{p.hotel?.ubicacion || 'Ubicación por confirmar'}</div>
-            <div className="text-xs text-default-400 mt-1">Incluye {p.invitados_incluidos} invitados</div>
+            <div className="text-sm text-foreground/60 mt-1">{p.hotel?.ubicacion || 'Ubicación por confirmar'}</div>
+            <div className="text-xs text-foreground/40 mt-1">Incluye {p.invitados_incluidos} invitados</div>
           </CardBody>
-          <CardFooter className="px-4 pb-4 flex justify-end">
-            <Button as={"a"} href={`/paquete/${p.id}`} size="sm" color="primary" variant="shadow">Ver detalle</Button>
+          <CardFooter className="px-5 pb-5 pt-0 flex justify-end">
+            <Button as={"a"} href={`/paquete/${p.id}`} size="sm" color="primary" variant="shadow" radius="full">Ver detalle</Button>
           </CardFooter>
         </Card>
       ))}

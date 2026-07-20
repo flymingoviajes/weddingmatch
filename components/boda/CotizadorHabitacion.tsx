@@ -4,7 +4,7 @@ import { Card, CardBody, CardHeader } from '@heroui/react'
 import { Divider } from '@heroui/divider'
 import { Button } from '@heroui/button'
 import { Input } from '@heroui/input'
-import { AlertCircle, Calculator, ChevronRight, Phone, Wallet } from 'lucide-react'
+import { AlertCircle, Calculator, ChevronRight, Phone, Plus, Trash2, Wallet } from 'lucide-react'
 import { BodaData } from './types'
 import { formatCurrency, nightsBetween } from './utils'
 import { emitOpenRSVP } from './rsvpBus'
@@ -15,152 +15,219 @@ type CotizadorHabitacionProps = {
   callLabel?: string
 }
 
+type Room = { id: number; adultos: number; menores: number; adultosStr: string; menoresStr: string }
+
+const OCCUPANCY_LABEL = ['Single', 'Doble', 'Triple', 'Cuádruple']
+
+let nextRoomId = 1
+function makeRoom(adultos = 2, menores = 0): Room {
+  return { id: nextRoomId++, adultos, menores, adultosStr: String(adultos), menoresStr: String(menores) }
+}
+
 export default function CotizadorHabitacion({ data, callNumber, callLabel }: CotizadorHabitacionProps) {
-  // Estados numéricos
-  const [adultos, setAdultos] = useState(2)
-  const [menores, setMenores] = useState(0)
-  // Estados de texto para edición libre (evita “salto a 4” al tipear)
-  const [adultosStr, setAdultosStr] = useState('2')
-  const [menoresStr, setMenoresStr] = useState('0')
+  const [rooms, setRooms] = useState<Room[]>([makeRoom(2, 0)])
 
   const nights = useMemo(() => nightsBetween(data.hospedaje.inicioISO, data.hospedaje.finISO), [data.hospedaje])
+  const maxOccupancy = data.cotizador.maxOccupancy
 
-  const occupancyAdults = Math.min(4, Math.max(1, adultos))
-  const maxMenores = Math.max(0, data.cotizador.maxOccupancy - occupancyAdults)
-  const occupancyLabel = ['Single', 'Doble', 'Triple', 'Cuádruple'][occupancyAdults - 1]
-
-  const perAdultRate = (() => {
+  const rateForOccupancy = (occupancyAdults: number) => {
     if (occupancyAdults === 1) return null
     if (occupancyAdults === 2) return data.cotizador.doublePerAdultPerNight
     if (occupancyAdults === 3) return data.cotizador.triplePerAdultPerNight
     return data.cotizador.quadPerAdultPerNight
-  })()
+  }
 
-  const total = (() => {
-    if (nights < data.cotizador.minNights) return 0
-    if (occupancyAdults === 1) {
-      return data.cotizador.singlePerRoomPerNight * nights
-    }
-    const payingAdults = occupancyAdults
-    return payingAdults * (perAdultRate ?? 0) * nights
-  })()
+  const roomsComputed = rooms.map((room) => {
+    const occupancyAdults = Math.min(4, Math.max(1, room.adultos))
+    const maxMenores = Math.max(0, maxOccupancy - occupancyAdults)
+    const perAdultRate = rateForOccupancy(occupancyAdults)
+    const subtotal =
+      nights < data.cotizador.minNights
+        ? 0
+        : occupancyAdults === 1
+          ? data.cotizador.singlePerRoomPerNight * nights
+          : occupancyAdults * (perAdultRate ?? 0) * nights
 
-  // —— Apartado ——
+    const warnings: string[] = []
+    if (room.adultos < 1) warnings.push('Debe haber al menos 1 adulto por habitación.')
+    if (room.adultos + room.menores > maxOccupancy)
+      warnings.push(`Máximo ${maxOccupancy} personas por habitación (adultos + menores).`)
+
+    return { room, occupancyAdults, maxMenores, perAdultRate, subtotal, warnings }
+  })
+
+  const totalAdultos = rooms.reduce((s, r) => s + r.adultos, 0)
+  const totalMenores = rooms.reduce((s, r) => s + r.menores, 0)
+  const granTotal = roomsComputed.reduce((s, r) => s + r.subtotal, 0)
+
   const APARTA_MXN = 1000
-  const deposito = adultos * APARTA_MXN
+  const deposito = totalAdultos * APARTA_MXN
 
-  // Handlers con edición libre y clamp en blur
-  const handleAdultosChange = (raw: string) => {
-    if (/^\d*$/.test(raw)) setAdultosStr(raw)
+  const globalWarnings: string[] = []
+  if (nights < data.cotizador.minNights) globalWarnings.push(`Mínimo ${data.cotizador.minNights} noches para esta tarifa.`)
+  const allWarnings = [...globalWarnings, ...roomsComputed.flatMap((r) => r.warnings)]
+  const disabled = allWarnings.length > 0
+
+  const updateRoom = (id: number, patch: Partial<Room>) =>
+    setRooms((rs) => rs.map((r) => (r.id === id ? { ...r, ...patch } : r)))
+
+  const handleAdultosChange = (id: number, raw: string) => {
+    if (/^\d*$/.test(raw)) updateRoom(id, { adultosStr: raw })
   }
-  const handleAdultosBlur = () => {
-    const parsed = parseInt(adultosStr || '0', 10)
-    const clamped = Math.min(4, Math.max(1, isNaN(parsed) ? 1 : parsed))
-    setAdultos(clamped)
-    setAdultosStr(String(clamped))
-    const newMaxMenores = Math.max(0, data.cotizador.maxOccupancy - clamped)
-    if (menores > newMaxMenores) {
-      setMenores(newMaxMenores)
-      setMenoresStr(String(newMaxMenores))
-    }
+  const handleAdultosBlur = (id: number) => {
+    setRooms((rs) =>
+      rs.map((r) => {
+        if (r.id !== id) return r
+        const parsed = parseInt(r.adultosStr || '0', 10)
+        const clamped = Math.min(4, Math.max(1, isNaN(parsed) ? 1 : parsed))
+        const newMaxMenores = Math.max(0, maxOccupancy - clamped)
+        const clampedMenores = Math.min(r.menores, newMaxMenores)
+        return { ...r, adultos: clamped, adultosStr: String(clamped), menores: clampedMenores, menoresStr: String(clampedMenores) }
+      })
+    )
   }
-  const handleMenoresChange = (raw: string) => {
-    if (/^\d*$/.test(raw)) setMenoresStr(raw)
+  const handleMenoresChange = (id: number, raw: string) => {
+    if (/^\d*$/.test(raw)) updateRoom(id, { menoresStr: raw })
   }
-  const handleMenoresBlur = () => {
-    const parsed = parseInt(menoresStr || '0', 10)
-    const clamped = Math.min(maxMenores, Math.max(0, isNaN(parsed) ? 0 : parsed))
-    setMenores(clamped)
-    setMenoresStr(String(clamped))
+  const handleMenoresBlur = (id: number) => {
+    setRooms((rs) =>
+      rs.map((r) => {
+        if (r.id !== id) return r
+        const maxMenores = Math.max(0, maxOccupancy - r.adultos)
+        const parsed = parseInt(r.menoresStr || '0', 10)
+        const clamped = Math.min(maxMenores, Math.max(0, isNaN(parsed) ? 0 : parsed))
+        return { ...r, menores: clamped, menoresStr: String(clamped) }
+      })
+    )
   }
 
-  const warnings: string[] = []
-  if (adultos < 1) warnings.push('Debe haber al menos 1 adulto por habitación.')
-  if (adultos + menores > data.cotizador.maxOccupancy)
-    warnings.push(`Máximo ${data.cotizador.maxOccupancy} personas por habitación (adultos + menores).`)
-  if (nights < data.cotizador.minNights) warnings.push(`Mínimo ${data.cotizador.minNights} noches para esta tarifa.`)
+  const addRoom = () => setRooms((rs) => (rs.length >= 6 ? rs : [...rs, makeRoom(2, 0)]))
+  const removeRoom = (id: number) => setRooms((rs) => (rs.length <= 1 ? rs : rs.filter((r) => r.id !== id)))
 
-  const disabled = warnings.length > 0
+  const resumen = `${rooms.length} habitación(es) · ${totalAdultos} adulto(s)${totalMenores > 0 ? ` · ${totalMenores} menor(es)` : ''} · ${nights} noches · Total estimado ${formatCurrency(granTotal, 'MXN')}`
 
   return (
-    <Card shadow="sm" className="border border-neutral-200">
+    <Card shadow="sm" className="border border-divider">
       <CardHeader>
         <div className="flex items-center gap-2">
-          <Calculator className="w-5 h-5" />
-          <h2 className="text-xl font-semibold">Cotiza tu habitación</h2>
+          <Calculator className="w-5 h-5 text-primary" />
+          <h2 className="font-display text-xl">Cotiza tus habitaciones</h2>
         </div>
       </CardHeader>
       <Divider />
       <CardBody className="space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <Input
-            type="text"
-            inputMode="numeric"
-            pattern="[0-9]*"
-            label="Adultos"
-            value={adultosStr}
-            onChange={(e) => handleAdultosChange(e.target.value)}
-            onBlur={handleAdultosBlur}
-            placeholder="1–4"
-          />
-          <Input
-            type="text"
-            inputMode="numeric"
-            pattern="[0-9]*"
-            label={`Menores (0–17)`}
-            value={menoresStr}
-            onChange={(e) => handleMenoresChange(e.target.value)}
-            onBlur={handleMenoresBlur}
-            placeholder={`0–${maxMenores}`}
-          />
-          <Input isReadOnly label="Noches" value={String(nights)} />
+        <div className="space-y-4">
+          {roomsComputed.map(({ room, occupancyAdults, maxMenores, perAdultRate, subtotal, warnings }, i) => (
+            <div key={room.id} className="rounded-xl border border-divider p-4">
+              <div className="flex items-center justify-between mb-3">
+                <p className="font-medium">Habitación {i + 1}</p>
+                {rooms.length > 1 && (
+                  <Button
+                    isIconOnly
+                    size="sm"
+                    variant="light"
+                    aria-label={`Quitar habitación ${i + 1}`}
+                    onPress={() => removeRoom(room.id)}
+                  >
+                    <Trash2 className="w-4 h-4 text-foreground/50" />
+                  </Button>
+                )}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <Input
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  label="Adultos"
+                  value={room.adultosStr}
+                  onChange={(e) => handleAdultosChange(room.id, e.target.value)}
+                  onBlur={() => handleAdultosBlur(room.id)}
+                  placeholder="1–4"
+                />
+                <Input
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  label="Menores (0–17)"
+                  value={room.menoresStr}
+                  onChange={(e) => handleMenoresChange(room.id, e.target.value)}
+                  onBlur={() => handleMenoresBlur(room.id)}
+                  placeholder={`0–${maxMenores}`}
+                />
+                <Input isReadOnly label="Noches" value={String(nights)} />
+              </div>
+
+              <p className="mt-3 text-sm text-foreground/60">
+                Ocupación <span className="font-medium text-foreground">{OCCUPANCY_LABEL[occupancyAdults - 1]}</span> ({room.adultos} adulto(s)
+                {room.menores > 0 ? ` + ${room.menores} menor(es)` : ''})
+              </p>
+
+              {occupancyAdults === 1 ? (
+                <p className="mt-1 text-sm text-foreground/70">
+                  Tarifa: {formatCurrency(data.cotizador.singlePerRoomPerNight, 'MXN')} / noche (habitación)
+                </p>
+              ) : (
+                <p className="mt-1 text-sm text-foreground/70">
+                  Tarifa: {formatCurrency(perAdultRate ?? 0, 'MXN')} / noche / adulto • Menores {data.cotizador.childPolicy.minAge}-
+                  {data.cotizador.childPolicy.maxAge} años:{' '}
+                  <strong>
+                    {data.cotizador.childPolicy.pricePerNight === 0
+                      ? 'GRATIS'
+                      : formatCurrency(data.cotizador.childPolicy.pricePerNight, 'MXN')}
+                  </strong>
+                </p>
+              )}
+
+              <p className="mt-2 font-medium">Subtotal: {formatCurrency(subtotal, 'MXN')}</p>
+
+              {warnings.length > 0 && (
+                <div className="mt-2 flex flex-col gap-1">
+                  {warnings.map((w, wi) => (
+                    <p key={wi} className="text-danger-600 text-sm flex items-center gap-2">
+                      <AlertCircle className="w-4 h-4 shrink-0" /> {w}
+                    </p>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
 
-        <div className="rounded-xl border border-neutral-200 p-4">
-          <p className="text-sm text-neutral-600">
-            Ocupación seleccionada <span className="font-medium">{occupancyLabel}</span> ({adultos} adulto(s)
-            {menores > 0 ? ` + ${menores} menor(es)` : ''})
-          </p>
+        {rooms.length < 6 && (
+          <Button variant="flat" startContent={<Plus className="w-4 h-4" />} onPress={addRoom}>
+            Agregar habitación
+          </Button>
+        )}
 
-          {occupancyAdults === 1 ? (
-            <p className="mt-2">Tarifa: {formatCurrency(data.cotizador.singlePerRoomPerNight, 'MXN')} / noche (habitación)</p>
-          ) : (
-            <p className="mt-2">
-              Tarifa: {formatCurrency(perAdultRate ?? 0, 'MXN')} / noche / adulto • Menores {data.cotizador.childPolicy.minAge}-
-              {data.cotizador.childPolicy.maxAge} años:{' '}
-              <strong>
-                {data.cotizador.childPolicy.pricePerNight === 0
-                  ? 'GRATIS'
-                  : formatCurrency(data.cotizador.childPolicy.pricePerNight, 'MXN')}
-              </strong>
-            </p>
-          )}
-
-          <p className="mt-1 text-sm text-neutral-600">
+        <div className="rounded-xl border border-divider p-4 bg-content2/40">
+          <p className="text-sm text-foreground/60">
             Estancia: {new Date(data.hospedaje.inicioISO).toLocaleDateString('es-MX')} –{' '}
             {new Date(data.hospedaje.finISO).toLocaleDateString('es-MX')} ({nights} noches)
           </p>
+          <p className="mt-1 text-sm text-foreground/60">
+            {rooms.length} habitación(es) · {totalAdultos} adulto(s){totalMenores > 0 ? ` + ${totalMenores} menor(es)` : ''}
+          </p>
 
           <Divider className="my-3" />
-          <p className="text-lg font-semibold">Total estimado: {formatCurrency(total, 'MXN')}</p>
+          <p className="font-display text-2xl text-primary">Total estimado: {formatCurrency(granTotal, 'MXN')}</p>
 
-          {/* Apartado (sin botón extra) */}
           <div className="mt-2 flex items-center gap-2">
-            <Wallet className="w-4 h-4" />
-            <p className="text-sm text-neutral-700">
+            <Wallet className="w-4 h-4 text-primary" />
+            <p className="text-sm text-foreground/70">
               Aparta hoy con <strong>{formatCurrency(deposito, 'MXN')}</strong>{' '}
-              <span className="text-neutral-600">(MXN $1,000 por adulto)</span>
+              <span className="text-foreground/50">(MXN $1,000 por adulto)</span>
             </p>
           </div>
 
-          <p className="text-sm text-neutral-500 mt-1">
-            * Estimado basado en ocupación de adultos. Menores sin costo, pero cuentan para el aforo máximo.
+          <p className="text-sm text-foreground/50 mt-1">
+            * Estimado basado en ocupación de adultos. Menores sin costo, pero cuentan para el aforo máximo de cada habitación.
           </p>
         </div>
 
-        {warnings.length > 0 && (
+        {globalWarnings.length > 0 && (
           <div className="flex flex-col gap-2">
-            {warnings.map((w, i) => (
+            {globalWarnings.map((w, i) => (
               <p key={i} className="text-danger-600 text-sm flex items-center gap-2">
                 <AlertCircle className="w-4 h-4" /> {w}
               </p>
@@ -173,12 +240,20 @@ export default function CotizadorHabitacion({ data, callNumber, callLabel }: Cot
             color="success"
             endContent={<ChevronRight className="w-4 h-4" />}
             isDisabled={disabled}
-            onPress={() => emitOpenRSVP({ adultos, menores, nights, total, occupancyLabel })}
+            onPress={() =>
+              emitOpenRSVP({
+                adultos: totalAdultos,
+                menores: totalMenores,
+                nights,
+                total: granTotal,
+                habitaciones: rooms.length,
+                resumen,
+              })
+            }
           >
-            Reservar esta opción
+            Reservar estas habitaciones
           </Button>
 
-          {/* Botón llamar (dentro del wizard) */}
           {callNumber ? (
             <Button
               as="a"
