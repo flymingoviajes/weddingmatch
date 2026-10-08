@@ -609,12 +609,235 @@ const DEMO4: BodaData = {
   }
 }
 
+// ===== DEMO con los datos de María Fernanda & José Luis (Moon Palace Sunrise) =====
+const DEMO5: BodaData = {
+  slug: 'maria-fernanda-y-jose-luis-2027',
+  nombresNovios: 'María Fernanda Azúa Rivera & José Luis Chavarría Mendoza',
+  fechaEventoISO: '2027-10-16T17:00:00-05:00', // hora placeholder (no especificada), Cancún (UTC-5)
+  subtitulo: 'Moon Palace Sunrise, Cancún — 15 al 18 de octubre de 2027',
+  // Portada temporal (foto aérea del hotel) hasta tener foto de los novios
+  portadaUrl: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/moon%20palace/448117768.jpg',
+
+  hospedaje: {
+    inicioISO: '2027-10-15T15:00:00-05:00',
+    finISO: '2027-10-18T12:00:00-05:00'
+  },
+
+  hotel: {
+    nombre: 'Moon Palace Sunrise',
+    direccion: 'Carretera Cancún - Tulum Km 340, Riviera Maya, Q.R.',
+    web: '',
+    telefono: '',
+    mapaIframe: ''
+  },
+
+  bloqueHabitaciones: {
+    codigo: '',
+    fechaLimite: '',
+    nochesMin: 3,
+    nota: 'Mínimo 3 noches. Tarifas por persona, por noche, en categoría Garden View. Sujetas a cambios y disponibilidad.'
+  },
+
+  // IMPORTANTE: estas tarifas son POR PERSONA POR NOCHE (no por habitación). CPL: N/A
+  tarifas: [
+    {
+      titulo: 'Garden View — Single',
+      descripcion: 'Precio por persona, por noche',
+      precioDesde: 7443,
+      moneda: 'MXN',
+      por: 'persona',
+      ocupacion: '1 adulto',
+      minNoches: 3
+    },
+    {
+      titulo: 'Garden View — Doble',
+      descripcion: 'Precio por persona, por noche',
+      precioDesde: 3721,
+      moneda: 'MXN',
+      por: 'persona',
+      ocupacion: '2 adultos',
+      minNoches: 3
+    },
+    {
+      titulo: 'Garden View — Triple',
+      descripcion: 'Precio por persona, por noche',
+      precioDesde: 3446,
+      moneda: 'MXN',
+      por: 'persona',
+      ocupacion: '3 adultos',
+      minNoches: 3
+    },
+    {
+      titulo: 'Menores (0–17 años)',
+      descripcion: 'Menores 0–12 y juniors 13–17',
+      precioDesde: 0,
+      moneda: 'MXN',
+      por: 'persona',
+      ocupacion: 'Gratis compartiendo',
+      minNoches: 3
+    }
+  ],
+
+  agenda: [
+    { titulo: 'Ceremonia', detalle: 'Por definir', icon: 'ceremonia' },
+    { titulo: 'Coctel / Recepción', detalle: 'Por definir', icon: 'otro' }
+  ],
+
+  faq: [
+    {
+      q: '¿Incluye vuelos?',
+      a: 'En este cotizador solo se incluyen las tarifas del hospedaje. Si requieres vuelos, puedes solicitarlos con tu agente Flymingo.'
+    },
+    {
+      q: '¿Las tarifas son por persona o por habitación?',
+      a: 'Por persona, por noche. Por ejemplo, 2 adultos en habitación doble por 3 noches: 2 × $3,721 × 3 = $22,326 MXN.'
+    },
+    {
+      q: '¿Mínimo de noches?',
+      a: '3 noches (15–18 octubre 2027).'
+    },
+    {
+      q: '¿Capacidad por habitación?',
+      a: 'Máximo 3 adultos por habitación (no hay tarifa cuádruple). Hasta 4 personas en total contando menores, sujeto a políticas del hotel.'
+    },
+    {
+      q: '¿Menores?',
+      a: 'Menores de 0 a 12 años y juniors de 13 a 17 años van GRATIS compartiendo habitación con adultos, sujeto a políticas del hotel.'
+    }
+  ],
+
+  links: {
+    whatsapp: '',
+    pago: '',
+    terminosPDF: '',
+    infoHotel: ''
+  },
+
+  rsvpMode: 'form',
+
+  // Las tarifas ya vienen por persona: se usan directo, sin dividir entre adultos
+  cotizador: {
+    singlePerRoomPerNight: 7443,
+    doublePerAdultPerNight: 3721,
+    triplePerAdultPerNight: 3446,
+    quadPerAdultPerNight: 0, // CPL N/A
+    childPolicy: {
+      minAge: 0,
+      maxAge: 17,
+      pricePerNight: 0
+    },
+    minNights: 3,
+    maxOccupancy: 4
+  },
+
+  galeria: {
+    images: [
+      { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/moon%20palace/448117768.jpg', caption: 'Piscinas espectaculares' },
+      {
+        src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/moon%20palace/all-inclusive-vacay-moon-palace-cancun_0d3c6d24cb.webp',
+        caption: 'Moon Palace'
+      },
+      { src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/moon%20palace/ice-83880-72745021_3XL-718223.jpg', caption: 'Swim Bar' },
+      {
+        src: 'https://rqlfmdoptoodaqkxidyi.supabase.co/storage/v1/object/public/media/moon%20palace/superior_deluxe_garden_view_moon_palace_nizuc_cancun_6b4dd931ab.webp',
+        caption: 'Habitaciones'
+      }
+    ]
+  },
+
+  hotelOverview: {
+    descripcion:
+      'Moon Palace Cancún es un resort Todo Incluido frente al mar Caribe, ubicado en la zona hotelera de Cancún, aproximadamente a 15 minutos del Aeropuerto Internacional de Cancún. El complejo está dividido principalmente en Sunrise y Nizuc, y los huéspedes de Sunrise tienen acceso a las instalaciones, restaurantes, bares, actividades y entretenimiento de todo el complejo. Sunrise está orientado a mantener entretenidos a los huéspedes durante todo el día y parte de la noche.',
+
+    secciones: [
+      {
+        titulo: 'Habitaciones (según categoría)',
+        bullets: [
+          'Cama King o dos camas',
+          'Jacuzzi doble con hidromasaje',
+          'Minibar y dispensador de licores',
+          'Servicio a habitación 24 horas incluido',
+          'Wi-Fi',
+          'Amenidades de baño CHI',
+          'Secadora y plancha para cabello CHI',
+          'Amenidades para café y bebidas'
+        ]
+      },
+      {
+        titulo: '¿Qué incluye el Todo Incluido?',
+        bullets: [
+          'Hospedaje',
+          'Desayuno, comida y cena',
+          'Restaurantes a la carta y buffets',
+          'Snacks y bebidas, incluyendo bebidas premium',
+          'Servicio a habitación 24 horas y minibar',
+          'Wi-Fi',
+          'Actividades diurnas y entretenimiento nocturno',
+          'Acceso a albercas, playa y FlowRider®',
+          'Actividades recreativas',
+          'Acceso a restaurantes y amenidades de Nizuc'
+        ]
+      },
+      {
+        titulo: 'Bares y bebidas',
+        bullets: [
+          '11 bares entre Sunrise y Nizuc',
+          'Bebidas premium en restaurantes y bares',
+          'Bares en zonas de alberca, lobby y entretenimiento nocturno',
+          'Café, coctelería y vinos prácticamente todo el día'
+        ]
+      },
+      {
+        titulo: 'Albercas y playa',
+        bullets: [
+          'Amplias áreas de alberca, incluyendo una piscina central',
+          'Playa del Caribe',
+          'Servicio de alimentos y bebidas en las áreas de descanso',
+          'Camastros y áreas para relajarse',
+          'Actividades acuáticas'
+        ]
+      },
+      {
+        titulo: 'Actividades y entretenimiento',
+        bullets: [
+          'FlowRider®, simulador de olas',
+          'Actividades acuáticas, deportivas y recreativas',
+          'Actividades alrededor de las albercas',
+          'Entretenimiento durante el día',
+          'Actividades para niños',
+          'Shows, eventos y entretenimiento nocturno',
+          'Videojuegos y arcade'
+        ]
+      },
+      {
+        titulo: 'Gastronomía • Restaurantes',
+        bullets: [
+          'Bugambilias — buffet internacional y comida mexicana',
+          'Momo — comida asiática, sushi y teppanyaki',
+          'Agra — cocina de la India',
+          'Palapa Asadero — carnes y parrilla',
+          'Palapa Pelícanos — comida mediterránea, pizzas y opciones casuales',
+          'La Burgería — hamburguesas gourmet',
+          'Smoked — BBQ estilo texano',
+          'Pepe’s Pizza — pizzas al horno de leña',
+          'Sweet & Coffee — café, crepas, helados y postres',
+          'Góndola — comida italiana',
+          'Carvao — cortes de carne estilo brasileño',
+          'El Manglar — buffet internacional',
+          'Además, varias opciones gastronómicas de la sección Nizuc'
+        ]
+      }
+    ]
+  }
+}
+
 // ===== Data loader local (reemplaza luego por Supabase) =====
 async function getBodaData(slug: string): Promise<BodaData | null> {
   if (slug === DEMO.slug) return DEMO
   if (slug === DEMO2.slug) return DEMO2
   if (slug === DEMO3.slug) return DEMO3
   if (slug === DEMO4.slug) return DEMO4
+  if (slug === DEMO5.slug) return DEMO5
   return null
 }
 

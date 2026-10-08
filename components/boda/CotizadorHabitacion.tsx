@@ -53,6 +53,8 @@ export default function CotizadorHabitacion({ data, callNumber, callLabel }: Cot
     if (room.adultos < 1) warnings.push('Debe haber al menos 1 adulto por habitación.')
     if (room.adultos + room.menores > maxOccupancy)
       warnings.push(`Máximo ${maxOccupancy} personas por habitación (adultos + menores).`)
+    if (occupancyAdults > 1 && !perAdultRate)
+      warnings.push(`No hay tarifa para ${occupancyAdults} adultos en una habitación; agrega otra habitación.`)
 
     return { room, occupancyAdults, maxMenores, perAdultRate, subtotal, warnings }
   })
